@@ -4,6 +4,7 @@ var
   express = require('express'),
   app = express(),
   logger = require('morgan'),
+  request = require('request'),
   PORT = process.env.PORT || 3000
 
 mongoose.connect('mongodb://localhost/chetflix_and_nil', function(err) {
@@ -12,28 +13,22 @@ mongoose.connect('mongodb://localhost/chetflix_and_nil', function(err) {
 })
 
 
-app.get('/chetflixsandbil/:id', function(req, res) {
-  var apiUrl = "http://pokeapi.co/api/v2/pokemon/" + req.params.id
+
+app.get('/search', function(req, res) {
+  var ApiUrl = "http://www.omdbapi.com/?s=" + req.query.t;
 
   request(apiUrl, function(err, response) {
-    // var image = JSON.parse(response.body).data
-    var data = JSON.parse(response.body)
-    var pokemon = {
-      name: data.name,
-      weight: data.weight,
-      height: data.height,
-      base_experience: data.base_experience
-    }
-
-    res.json(pokemon)
+    if(err) return console.log(err);
+    res.json(JSON.parse(response.body))
   })
 })
 
 
 
-app.get('/', function(req, res) {
-  res.json({Success: true, message: 'Welcome to the home page!'})
-})
+// app.get('/', function(req, res) {
+//   res.
+//   json({Success: true, message: 'Welcome to the home page!'})
+// })
 
 
 app.listen(PORT, function(err) {
