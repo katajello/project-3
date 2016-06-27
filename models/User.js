@@ -4,11 +4,20 @@ var
   Schema = mongoose.Schema,
   userSchema = new Schema({
     local: {
-      name: String,
-      email: String,
-      password: String
+      name: {type: String, required: true},
+      email: {type: String, required: true, unique: true},
+      password: String,
+      avatar: String,
+      location: String,
+      bio: String,
+      occupation: String,
+      age: {type: Number, min: 18},
+      height: Number,
+      ethnicity: String,
+      interestedIn: String
     }
   })
+
 
   userSchema.methods.generateHash = function (password) {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(8))
