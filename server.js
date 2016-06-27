@@ -7,7 +7,7 @@ var
   ejsLayouts = require('express-ejs-layouts'),
   flash = require('connect-flash'),
   logger = require('morgan'),
-  request = require('request'),
+  // request = require('request'),
   cookieParser = require('cookie-parser'),
   session = require ('express-session'),
   passport = require('passport'),
@@ -21,13 +21,7 @@ mongoose.connect('mongodb://localhost/chetflix_and_nil', function(err) {
 })
 
 
-app.get('/search', function(req, res) {
-  var ApiUrl = "http://www.omdbapi.com/?s=" + req.query.t;
 
-  request(apiUrl, function(err, response) {
-    if(err) return console.log(err);
-    res.json(JSON.parse(response.body))
-  })
 
 app.use(logger('dev'))
 app.use(cookieParser())
