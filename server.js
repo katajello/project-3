@@ -11,7 +11,7 @@ var
   session = require ('express-session'),
   passport = require('passport'),
   passportConfig = require('./config/passport.js'),
-  userRoutes = require('./routes/user.js'),
+  userRoutes = require('./routes/users.js'),
   PORT = process.env.PORT || 3000
 
 mongoose.connect('mongodb://localhost/chetflix_and_nil', function(err) {
