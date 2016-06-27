@@ -4,10 +4,10 @@ var
   express = require('express'),
   app = express(),
   logger = require('morgan'),
-  PORT = process.env.PORT || 3000,
-  
+  PORT = process.env.PORT || 3000
 
-mongoose.connect('MongoDB://localhost/chetflix_and_nil', function(err) {
+
+mongoose.connect('mongodb://localhost/chetflix_and_nil', function(err) {
   if (err) throw err;
   console.log('Connected to MongoDB (chetflix_and_nil)')
 })
