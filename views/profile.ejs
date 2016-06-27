@@ -5,12 +5,20 @@
 <div class="row">
     <div class="col-sm-6 col-sm-offset-3">
         <div class="well">
-            <h3>Locally Stored User</h3>
+            <h3><%= user.local.name %></h3>
                 <p>
                     <strong>Name</strong>: <%= user.local.name %><br>
-                    <strong>id</strong>: <%= user._id %><br>
+                    <!-- <strong>id</strong>: <% user._id %><br> -->
                     <strong>email</strong>: <%= user.local.email %><br>
-                    <strong>password</strong>: <%= user.local.password %>
+                    <!-- <strong>password</strong>: <% user.local.password %> -->
+                    <strong>Location</strong>: <%= user.local.location%><br>
+                    <strong>Bio</strong>: <%= user.local.bio%><br>
+                    <strong>Occupation</strong>: <%= user.local.occupationc%><br>
+                    <strong>Age</strong>: <%= user.local.age%><br>
+                    <strong>Height</strong>: <%= user.local.height%><br>
+                    <strong>Ethnicity</strong>: <%= user.local.ethnicity%><br>
+                    <strong>Interested In?</strong>: <%= user.local.interestedIn%><br>
+
                 </p>
         </div>
     </div>
