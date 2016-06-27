@@ -1,7 +1,7 @@
 var
   express = require('express'),
   passport = require('passport'),
-  userRoutes = express.Router()
+  userRouter = express.Router()
 
 userRouter.route('/login')
   .get(function (req, res) {
