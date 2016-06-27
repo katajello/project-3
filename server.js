@@ -6,11 +6,15 @@ var
   logger = require('morgan'),
   PORT = process.env.PORT || 3000
 
-
 mongoose.connect('mongodb://localhost/chetflix_and_nil', function(err) {
   if (err) throw err;
   console.log('Connected to MongoDB (chetflix_and_nil)')
 })
+
+app.get('/', function(req, res) {
+  res.json({Success: true, message: 'Welcome to the home page!'})
+})
+
 
 app.listen(PORT, function(err) {
   if (err) throw err;
