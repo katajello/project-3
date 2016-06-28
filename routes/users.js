@@ -39,21 +39,10 @@ userRouter.route('/users/:id')
     })
   })
   .post(function (req, res) {
-    console.log("inside of post user");
-    console.log(req.query);
-    // updating a value inside the local document requires prefixing the key with local.
-    // example = {"local.name": "newName"}
-    // var setObject = {}
-    //
-    // for (key in req.body) {
-    //   if (key == 'id') continue
-    //   setObject['local' + key] = req.body[key]
-    // }
-    // var id = req.params.id
-    // console.log(id);
     User.findByIdAndUpdate(req.params.id, req.body, {new:true}, function (err, user) {
       if (err) return console.log(err);
-      res.json({success:true, message:"User Updated", user: user})
+      res.redirect('/profile')
+      // res.json({success:true, message:"User Updated", user: user})
     })
   })
   .delete(function(req, res) {
