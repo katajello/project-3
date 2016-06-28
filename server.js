@@ -7,7 +7,6 @@ var
   ejsLayouts = require('express-ejs-layouts'),
   flash = require('connect-flash'),
   logger = require('morgan'),
-  // request = require('request'),
   cookieParser = require('cookie-parser'),
   session = require ('express-session'),
   passport = require('passport'),
