@@ -3,6 +3,7 @@ var
   passport = require('passport'),
   userRouter = express.Router()
 
+
 userRouter.route('/login')
   .get(function (req, res) {
     res.render('login', {flash: req.flash('loginMessage')})
@@ -31,9 +32,21 @@ userRouter.get('/logout', function (req, res) {
   res.redirect('/')
 })
 
+userRouter.get('/sign-out', function (req, res) {
+  req.logout()
+  res.redirect('/')
+})
+
 function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()) return next()
   res.redirect('/')
 }
+
+ userRouter.get('/chetflix', function(req, res) {
+     res.redirect('/')
+   })
+
+ 
+
 
 module.exports = userRouter

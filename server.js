@@ -12,6 +12,8 @@ var
   passport = require('passport'),
   passportConfig = require('./config/passport.js'),
   userRoutes = require('./routes/users.js'),
+  movieRoutes = require('./routes/movies.js'),
+
   PORT = process.env.PORT || 3000
 
 // Connects to the local database for testing purposes
@@ -54,6 +56,7 @@ app.get('/', function (req, res) {
 
 // router for user routes
 app.use('/', userRoutes)
+app.use('/', movieRoutes)
 
 
 // starts the server listening on either port 3000 or process.env.PORT
