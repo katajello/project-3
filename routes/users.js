@@ -39,12 +39,19 @@ userRouter.route('/users/:id')
     })
   })
   .patch(function (req, res) {
-      User.findByIdAndUpdate(req.params.id, {local:req.body}, {new:true}, function (err, user) {
-        if (err) return console.log(err);
-        res.json({success:true, message:"User Updated", user: user})
-        // res.json(req.params.id)
-      })
+    // updating a value inside the local document requires prefixing the key with local.
+    // example = {"local.name": "newName"}
+    User.findByIdAndUpdate(req.params.id, req.body, {new:true}, function (err, user) {
+      if (err) return console.log(err);
+      res.json({success:true, message:"User Updated", user: user})
     })
+  })
+  .delete(function(req, res) {
+    User.findByIdAndRemove(req.params.id, function(err, user) {
+      if (err) throw err;
+      res.json(user)
+    })
+  })
 
 userRouter.route('/users/:id/edit')
   .get(function (req, res) {
