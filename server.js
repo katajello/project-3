@@ -55,10 +55,6 @@ app.get('/', function (req, res) {
 // router for user routes
 app.use('/', userRoutes)
 
-// temp root route
-// app.get('/', function(req, res) {
-//   res.json({Success: true, message: 'Welcome to the home page!'})
-// })
 
 // starts the server listening on either port 3000 or process.env.PORT
 app.listen(PORT, function(err) {
