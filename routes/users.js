@@ -42,7 +42,6 @@ userRouter.route('/users/:id')
     User.findByIdAndUpdate(req.params.id, req.body, {new:true}, function (err, user) {
       if (err) return console.log(err);
       res.redirect('/profile')
-      // res.json({success:true, message:"User Updated", user: user})
     })
   })
   .delete(function(req, res) {

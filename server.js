@@ -30,6 +30,8 @@ app.use(bodyParser.json())
 // parses data for submitting form data
 app.use(bodyParser.urlencoded({extended: false}))
 
+app.use(express.static('public'))
+
 // sets ejs as the view engine
 app.set('view engine', 'ejs')
 app.use(ejsLayouts)
