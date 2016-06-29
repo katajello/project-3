@@ -16,17 +16,55 @@
 </div>
 
 <script type="text/javascript">
-  $.get({
-    url: '/users'
+  var $display = $('#user-display')
+  var clearfix = '<div class="clearfix"></div>'
+  $.ajax({
+    url: 'users',
+    type: 'GET'
   })
   .done(function(users){
-    users.forEach(function(u) {
-      var profilePic = '<img class="responsive" src="' + u.local.avatar + '"/>'
+    // concatenate a long string to append to the user-display div
+    // start with declaring variables that will be reused
+    var rowStart = '<div class="row">'
+    var rowEnd = '</div>'
+    var profileDisplay = ''
+    // loop through the users that were returned in the ajax call
+    users.forEach(function(u, i) {
+      // start a new row at the beginning and at the beginning of the 5th iterations
+      if (i%4==0){
+        profileDisplay += rowStart
+        console.log("opening row ->", profileDisplay);
+      }
+      // for when we get avatars working correctly...
+      // var profilePic = '<img class="responsive" src="' + u.local.avatar + '"/>'
       var newUser = '<a href="/users/' + u._id + '"><h4>' + u.local.name + '</h4></a>'
-      var profile = '<div class="col-md-3">' + profilePic + newUser + '</div>'
-      $("#user-display").append(profile)
+      // avatar or other user data will be added into profile variable below when available
+      // col-md-3 used to fit 4 users per row and be responsive
+      var profile = '<div class="col-md-3">' + newUser + '</div>'
+      // add the assembled profile to the row
+      profileDisplay += profile
+      console.log("user added to line ->", profileDisplay);
+      // end the row if it is on the 4th iteration or the last iteration
+      if ((i+1)%4==0 || i == users.length-1) {
+        profileDisplay += rowEnd
+        console.log('row ended ->', profileDisplay)
+      }
     })
+    console.log(profileDisplay);
+    $display.append(profileDisplay)
   })
+  // .done(function(users){
+  //   users.forEach(function(u, i) {
+  //     if (i%4==0 && i > 0){
+  //       $display.append(clearfix)
+  //     }
+  //     // var profilePic = '<img class="responsive" src="' + u.local.avatar + '"/>'
+  //     var newUser = '<a href="/users/' + u._id + '"><h4>' + u.local.name + '</h4></a>'
+  //     var profile = '<div class="col-md-3">' + newUser + '</div>'
+  //     $display.append(profile)
+  //   })
+  //   $display.append(clearfix)
+  // })
 
 
 </script>
