@@ -38,7 +38,7 @@ userRouter.route('/users/:id')
       res.json(user)
     })
   })
-  .post(function (req, res) {
+  .patch(function (req, res) {
     User.findByIdAndUpdate(req.params.id, req.body, {new:true}, function (err, user) {
       if (err) return console.log(err);
       res.redirect('/profile')

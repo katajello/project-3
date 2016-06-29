@@ -8,6 +8,7 @@ var
   flash = require('connect-flash'),
   logger = require('morgan'),
   cookieParser = require('cookie-parser'),
+  methodOverride = require('method-override'),
   session = require ('express-session'),
   passport = require('passport'),
   passportConfig = require('./config/passport.js'),
@@ -29,6 +30,15 @@ app.use(cookieParser())
 app.use(bodyParser.json())
 // parses data for submitting form data
 app.use(bodyParser.urlencoded({extended: false}))
+// overrides POST request in edit form to be viewed as patch request
+app.use(methodOverride(function(req, res){
+  if (req.body && typeof req.body === 'object' && '_method' in req.body) {
+    // look in urlencoded POST bodies and delete it
+    var method = req.body._method
+    delete req.body._method
+    return method
+  }
+}))
 
 app.use(express.static('public'))
 
