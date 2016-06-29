@@ -4,26 +4,6 @@
     <div class="input-group">
       <input type="text" id="search-input" class="form-control" placeholder="Search movies..." value="">
       <button class="btn btn-default btn-sl active search-button" type="button">Go!</button>
-      <table class="pure-table">
-            <thead>
-              <tr>
-                <th>Title</th><br>
-                <h1 id="mtitle"></h1>
-                <h1 id="myear"></h1>
-                <h1 id="mtype"></h1>
-                <h1 id="mposter"></h1>
-                <img id="mimg" src="" alt="" />
-
-                <th>Year</th>
-                <th>imdbID</th>
-                <th>Type</th>
-                <th>Poster</th>
-              </tr>
-            </thead>
-            <tbody>
-
-            </tbody>
-          </table>
 
 
       <script type="text/javascript">
@@ -35,11 +15,14 @@
         // var $row = $('<tr id="' + source._id + '"></tr>')
         // $row.append(content + completedButton + deleteButton)
         // body.append($row);
-        var title = $('#mtitle')
-        var year = $('#myear')
-        var type = $('#mtype')
-        var poster = $('#mposter')
+        var $title = $('#mtitle')
+        var $year = $('#myear')
+        var $imdbid = $('#mimdbid')
+        var $type = $('#mtype')
+        // var $poster = $('#mposter')
+        var $img = $('#mimg')
 
+        var $movieResults = $('#movie-results')
 
         var $inputBox = $('#search-input')
       $('button').on('click', function() {
@@ -52,16 +35,58 @@
                 //  })
                 .done(function(data){
                   // title.append(data.Search[0].Title)
-                  title.text(data.Search[0].Title)
-                  year.text(data.Search[0].Year)
-                  type.text(data.Search[0].Type)
-                  this("mimg").src = data.Search[0].Poster
-                  poster.text(data.Search[0].Poster)
-                  console.log(data.Search[0].Poster);
-                  // poster.text(data.Search[0].Poster)
+                  // $title.text(data.Search[0].Title)
+                  // $year.text(data.Search[0].Year)
+                  // $imdbid.text(data.Search[0].imdbID)
+                  // $type.text(data.Search[0].Type)
+                  // $img.attr("src", data.Search[0].Poster)
+                  // $poster.text(data.Search[0].Poster)
+                  data.Search.forEach(function (movie) {
+                    $movieResults.append('<tr><td>' + movie.Title + '</td><td>' + movie.Year + '</td><td>' + movie.Type + '</td><td>' + movie.imdbID +
+                    '</td><td>' + '<img src="' + movie.Poster + '"/>' +
+                    '</td></tr>')
+                   })
                  })
       })
     }
+
+  
       </script>
     </div>
   </div>
+  </div>
+  <table class="table table-hover">
+    <th>Title</th>
+    <th>Year</th>
+    <th>Type</th>
+    <th>imdbID</th>
+    <th>Add Movie</th>
+    <th>Poster</th>
+
+  </table>
+
+
+  <table class="table">
+        <thead>
+            <tr>
+
+</tr>
+
+
+</thead>
+        <tbody id="movie-results">
+          <!-- <tr>
+          <td><h5 id="mtitle"></h5> </td>
+          <td><h5 id="myear"></h5></td>
+          <td><h5 id="mimdbid"></h5></td>
+          <td><h5 id="mtype"></h5></td>
+
+          <%# <h1 id="mposter"></h1>%>
+
+          <td><img id="mimg" src="" alt="" /></td>
+          </tr>-->
+
+
+
+        </tbody>
+      </table>
