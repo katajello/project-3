@@ -31,7 +31,12 @@
       </ul>
       <form class="navbar-form navbar-left" role="search">
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search Profile">
+          <div id="search-box">
+            <input id="search-input" type="text" class="form-control" value="Search Users">
+          </div>
+          <div id="search-results">
+
+          </div>
         </div>
         <button type="submit" class="btn btn-default">Submit</button>
       </form>
@@ -53,3 +58,48 @@
 
     </div>
 </nav>
+
+
+<script type="text/javascript">
+  $("#search-input").focus(function () {
+    if($("#search-input").val() == "Search Users") {
+      $("#search-input").val('')
+    }
+    $("#search-input").css("color", "#000000")
+  })
+  $("#search-input").blur(function () {
+    if($("#search-input").val() == "") {
+      $("#search-input").val("Search Users")
+      $("#search-input").css("color", "#999999")
+    }
+    $("search-results").slideUp()
+  })
+
+  $("#search-input").keyup(function (e) {
+    if(e.which == 8) {
+      searchText = $("#search-input").val().substring(0, $("#search-input").val().length-1)
+    }
+    else {
+      searchText = $("#search-input").val() + String.fromCharCode(e.which)
+    }
+    // $("#search-results").load("load Ajax", {search-input:searchText})
+    $.ajax({
+      url: '/users',
+      type: 'GET'
+    })
+    .done(function(data){
+      var searchResults = []
+      data.forEach(function(u) {
+        if ($('#search-input').val() == u.local.name) {
+          var link = '<a href="/users/' + u._id + '" >' + u.local.name + '</a>'
+          searchResults.push(link)
+        }
+      })
+      console.log(searchResults)
+
+      $('#search-results').html(searchResults)
+    })
+    $("#search-results").slideDown()
+  })
+
+</script>
