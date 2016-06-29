@@ -20,11 +20,11 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Profile <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <% if(isLoggedIn) { %>
-              <li><a href="/profile">My Porfile</a></li>
+              <li><a href="/profile">My Profile</a></li>
               <li><a href="<%= '/users/' + currentUser._id + '/edit' %>">Edit Profile</a></li>
               <li><a href="#">Groups</a></li>
               <li role="separator" class="divider"></li>
-              <li><a href="#">Sign out</a></li>
+              <li><a href="/logout">Sign out</a></li>
             <% } else { %>
               <li><a href="/login">Login</a></li>
             <% } %>
