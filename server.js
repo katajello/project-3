@@ -40,6 +40,7 @@ app.use(methodOverride(function(req, res){
   }
 }))
 
+// establishes the public folder for assets
 app.use(express.static('public'))
 
 // sets ejs as the view engine
@@ -58,11 +59,6 @@ app.use(session ({
 app.use(passport.initialize())
 app.use(passport.session())
 app.use(flash())
-
-// root route for home page
-app.get('/', function (req, res) {
-  res.render('index')
-})
 
 // router for user routes
 app.use('/', userRoutes)
