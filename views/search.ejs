@@ -1,32 +1,67 @@
+
 <div class="row">
   <div class="col-lg-6">
     <div class="input-group">
-      <span class="input-group-btn">
-        <button class="btn btn-secondary" type="button">Go!</button>
-      </span>
-      <input type="text" class="form-control" placeholder="Search movies...">
+      <input type="text" id="search-input" class="form-control" placeholder="Search movies..." value="">
+      <button class="btn btn-default btn-sl active search-button" type="button">Go!</button>
+      <table class="pure-table">
+            <thead>
+              <tr>
+                <th>Title</th><br>
+                <h1 id="mtitle"></h1>
+                <h1 id="myear"></h1>
+                <h1 id="mtype"></h1>
+                <h1 id="mposter"></h1>
+                <img id="mimg" src="" alt="" />
+
+                <th>Year</th>
+                <th>imdbID</th>
+                <th>Type</th>
+                <th>Poster</th>
+              </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+          </table>
+
+
+      <script type="text/javascript">
+      window.onload = function(){
+      //   data.Search
+        // var content = '<td><input class="content" type="text" value= "' + data.Search.title + '"</td>'
+        // var completedButton = '<td><button class="completed pure-button">' + source.completed + '</button></td>'
+        // var deleteButton = '<td><button class= "delete pure-button">Delete?</button></td>'
+        // var $row = $('<tr id="' + source._id + '"></tr>')
+        // $row.append(content + completedButton + deleteButton)
+        // body.append($row);
+        var title = $('#mtitle')
+        var year = $('#myear')
+        var type = $('#mtype')
+        var poster = $('#mposter')
+
+
+        var $inputBox = $('#search-input')
+      $('button').on('click', function() {
+        $.ajax({
+                  url: 'http://www.omdbapi.com/?s=' + $inputBox.val(),
+                  method: 'GET'
+                })
+                // .done(function(){
+                //   newRow()
+                //  })
+                .done(function(data){
+                  // title.append(data.Search[0].Title)
+                  title.text(data.Search[0].Title)
+                  year.text(data.Search[0].Year)
+                  type.text(data.Search[0].Type)
+                  this("mimg").src = data.Search[0].Poster
+                  poster.text(data.Search[0].Poster)
+                  console.log(data.Search[0].Poster);
+                  // poster.text(data.Search[0].Poster)
+                 })
+      })
+    }
+      </script>
     </div>
   </div>
-  <%# <div class="col-lg-6">
-    <div class="input-group">
-      <input type="text" class="form-control" placeholder="Search for...">
-      <span class="input-group-btn">
-        <button class="btn btn-secondary" type="button">Go!</button>
-      </span>
-    </div>
-  </div>%>
-</div>
-<br>
-<div class="row">
-  <div class="col-lg-offset-3 col-lg-6">
-    <div class="input-group">
-      <span class="input-group-btn">
-        <button class="btn btn-secondary" type="button">Love It</button>
-      </span>
-      <%# <input type="text" class="form-control" placeholder="Product name">%>
-      <span class="input-group-btn">
-        <button class="btn btn-secondary" type="button">Hate it</button>
-      </span>
-    </div>
-  </div>
-</div>

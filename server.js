@@ -13,6 +13,7 @@ var
   passportConfig = require('./config/passport.js'),
   userRoutes = require('./routes/users.js'),
   movieRoutes = require('./routes/movies.js'),
+  cors = require('cors'),
 
   PORT = process.env.PORT || 3000
 
@@ -22,6 +23,21 @@ mongoose.connect('mongodb://localhost/chetflix_and_nil', function(err) {
   console.log('Connected to MongoDB (chetflix_and_nil)')
 })
 
+//CORS middleware
+app.use(cors())
+app.use(function (req, res, next) {
+   res.header('Cache-Control', 'no-cache, no-store, must-revalidate');
+   res.header('Pragma', 'no-cache');
+   res.header('Expires', 0 );
+   res.header('Access-Control-Allow-Origin', '*');
+   res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS');
+   res.header('Access-Control-Allow-Headers', 'Content-Type');
+   if (req.method === 'Options') {
+     res.send(200);
+   } else {
+     return next();
+   }
+ })
 // Application-wide middleware
 // logger for debugging
 app.use(logger('dev'))
@@ -56,7 +72,10 @@ app.get('/', function (req, res) {
 
 // router for user routes
 app.use('/', userRoutes)
+
+// router for movie routes
 app.use('/', movieRoutes)
+app.use('/search', movieRoutes)
 
 
 // starts the server listening on either port 3000 or process.env.PORT
