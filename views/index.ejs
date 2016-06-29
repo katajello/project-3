@@ -1,7 +1,3 @@
-
-<!-- /.navbar-collapse
-  </div><! /.container-fluid -->
-
 <div class="jumbotron">
   <h1 class="display-3">Netflix and Chill</h1>
   <p class="lead">We all watch movies! We all chill!  Why not Netflix and Chill with the people who share your interest.  Start browsing today.  Or if you don't have an account, signing up is easy.</p>
@@ -14,7 +10,23 @@
   <% } %>
 </div>
 
-<div class="text-center">
+<div id="user-display" class="text-center">
   <h3>New Movie Lovers</h3>
   <hr>
 </div>
+
+<script type="text/javascript">
+  $.get({
+    url: '/users'
+  })
+  .done(function(users){
+    users.forEach(function(u) {
+      var profilePic = '<img class="responsive" src="' + u.local.avatar + '"/>'
+      var newUser = '<a href="/users/' + u._id + '"><h4>' + u.local.name + '</h4></a>'
+      var profile = '<div class="col-md-3">' + profilePic + newUser + '</div>'
+      $("#user-display").append(profile)
+    })
+  })
+
+
+</script>
