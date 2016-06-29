@@ -60,6 +60,13 @@ app.use(passport.initialize())
 app.use(passport.session())
 app.use(flash())
 
+// new middleware?
+app.use(function(req, res, next){
+    res.locals.currentUser = req.user
+    res.locals.isLoggedIn = !!req.user
+    next()
+})
+
 // router for user routes
 app.use('/', userRoutes)
 
