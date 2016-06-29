@@ -82,7 +82,6 @@
     else {
       searchText = $("#search-input").val() + String.fromCharCode(e.which)
     }
-    // $("#search-results").load("load Ajax", {search-input:searchText})
     $.ajax({
       url: '/users',
       type: 'GET'
@@ -93,11 +92,15 @@
         if ($('#search-input').val() == u.local.name) {
           var link = '<a href="/users/' + u._id + '" >' + u.local.name + '</a>'
           searchResults.push(link)
+          $('#search-results').html(searchResults)
+        } if (!($('#search-input').val() == u.local.name)) {
+          searchResults.push("No user found")
+          $('#search-results').html(searchResults[0])
         }
       })
       console.log(searchResults)
 
-      $('#search-results').html(searchResults)
+
     })
     $("#search-results").slideDown()
   })
