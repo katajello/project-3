@@ -32,7 +32,7 @@
       <form class="navbar-form navbar-left" role="search">
         <div class="form-group">
           <div id="search-box">
-            <input id="search-input" type="text" class="form-control" value="Search Users">
+            <input id="search-input" type="text" class="form-control" autocomplete="off" value="Search Users">
           </div>
           <div id="search-results">
 
@@ -89,18 +89,16 @@
     .done(function(data){
       var searchResults = []
       data.forEach(function(u) {
-        if ($('#search-input').val() == u.local.name) {
+        if ($('#search-input').val().toLowerCase() == u.local.name.toLowerCase()) {
           var link = '<a href="/users/' + u._id + '" >' + u.local.name + '</a>'
           searchResults.push(link)
-          $('#search-results').html(searchResults)
-        } if (!($('#search-input').val() == u.local.name)) {
-          searchResults.push("No user found")
-          $('#search-results').html(searchResults[0])
         }
       })
+      if (!searchResults.length) {
+        searchResults = ['Couldn\'t find a match 😕']
+      }
+      $('#search-results').html(searchResults)
       console.log(searchResults)
-
-
     })
     $("#search-results").slideDown()
   })
