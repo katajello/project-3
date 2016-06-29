@@ -16,9 +16,9 @@ var
   PORT = process.env.PORT || 3000
 
 // Connects to the local database for testing purposes
-mongoose.connect('mongodb://localhost/chetflix_and_nil', function(err) {
+mongoose.connect('mongodb://localhost/netflix_and_chill', function(err) {
   if (err) throw err;
-  console.log('Connected to MongoDB (chetflix_and_nil)')
+  console.log('Connected to MongoDB (netflix_and_chill)')
 })
 
 // Application-wide middleware
