@@ -17,23 +17,18 @@
 
 <script type="text/javascript">
   var $display = $('#user-display')
-  var clearfix = '<div class="clearfix"></div>'
-  $.ajax({
-    url: 'users',
-    type: 'GET'
-  })
-  .done(function(users){
+  // function for displaying users in rows on the page
+  function makeRows (source) {
     // concatenate a long string to append to the user-display div
     // start with declaring variables that will be reused
     var rowStart = '<div class="row">'
     var rowEnd = '</div>'
     var profileDisplay = ''
     // loop through the users that were returned in the ajax call
-    users.forEach(function(u, i) {
+    source.forEach(function(u, i) {
       // start a new row at the beginning and at the beginning of the 5th iterations
       if (i%4==0){
         profileDisplay += rowStart
-        console.log("opening row ->", profileDisplay);
       }
       // for when we get avatars working correctly...
       // var profilePic = '<img class="responsive" src="' + u.local.avatar + '"/>'
@@ -43,16 +38,20 @@
       var profile = '<div class="col-md-3">' + newUser + '</div>'
       // add the assembled profile to the row
       profileDisplay += profile
-      console.log("user added to line ->", profileDisplay);
       // end the row if it is on the 4th iteration or the last iteration
-      if ((i+1)%4==0 || i == users.length-1) {
+      if ((i+1)%4==0 || i == source.length-1) {
         profileDisplay += rowEnd
-        console.log('row ended ->', profileDisplay)
       }
     })
-    console.log(profileDisplay);
     $display.append(profileDisplay)
+  }
+
+  // ajax call to get all users when page is loaded
+  $.ajax({
+    url: 'users',
+    type: 'GET'
   })
+  .done(makeRows)
   // .done(function(users){
   //   users.forEach(function(u, i) {
   //     if (i%4==0 && i > 0){
