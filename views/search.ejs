@@ -42,15 +42,14 @@
                   // $img.attr("src", data.Search[0].Poster)
                   // $poster.text(data.Search[0].Poster)
                   data.Search.forEach(function (movie) {
-                    $movieResults.append('<tr><td>' + movie.Title + '</td><td>' + movie.Year + '</td><td>' + movie.Type + '</td><td>' + movie.imdbID +
-                    '</td><td>' + '<img src="' + movie.Poster + '"/>' +
-                    '</td></tr>')
+                    $movieResults.append('<tr><td>' + '<a href="http://www.omdbapi.com/?t=' + movie.Title + '">' + movie.Title + '</a>' + '</td><td>' + movie.Year + '</td><td>' + movie.Type + '</td><td>' + movie.imdbID +
+                    '</td><td>' + '<button type="submit" class="btn btn-info btn-sl">Add</button>' + '</td><td><a href="http://www.omdbapi.com/?t=' + movie.Title + '"><img class="thumbnail" src="' + movie.Poster + '"/></a></td></tr>')
                    })
                  })
       })
     }
 
-  
+
       </script>
     </div>
   </div>
