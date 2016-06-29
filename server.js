@@ -8,6 +8,7 @@ var
   flash = require('connect-flash'),
   logger = require('morgan'),
   cookieParser = require('cookie-parser'),
+  methodOverride = require('method-override'),
   session = require ('express-session'),
   passport = require('passport'),
   passportConfig = require('./config/passport.js'),
@@ -18,9 +19,9 @@ var
   PORT = process.env.PORT || 3000
 
 // Connects to the local database for testing purposes
-mongoose.connect('mongodb://localhost/chetflix_and_nil', function(err) {
+mongoose.connect('mongodb://localhost/netflix_and_chill', function(err) {
   if (err) throw err;
-  console.log('Connected to MongoDB (chetflix_and_nil)')
+  console.log('Connected to MongoDB (netflix_and_chill)')
 })
 
 //CORS middleware
@@ -47,6 +48,17 @@ app.use(cookieParser())
 app.use(bodyParser.json())
 // parses data for submitting form data
 app.use(bodyParser.urlencoded({extended: false}))
+// overrides POST request in edit form to be viewed as patch request
+app.use(methodOverride(function(req, res){
+  if (req.body && typeof req.body === 'object' && '_method' in req.body) {
+    // look in urlencoded POST bodies and delete it
+    var method = req.body._method
+    delete req.body._method
+    return method
+  }
+}))
+
+app.use(express.static('public'))
 
 // sets ejs as the view engine
 app.set('view engine', 'ejs')

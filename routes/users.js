@@ -1,6 +1,7 @@
 var
   express = require('express'),
   passport = require('passport'),
+  User = require('../models/User.js'),
   userRouter = express.Router()
 
 
@@ -22,6 +23,42 @@ userRouter.route('/signup')
     successRedirect: '/profile',
     failureRedirect: '/signup'
   }))
+
+userRouter.route('/users')
+.get(function (req, res) {
+  User.find({}, function (err, users) {
+    if (err) return console.log(err);
+    res.json(users)
+  })
+})
+
+userRouter.route('/users/:id')
+  .get(function (req, res) {
+    User.findById(req.params.id, function (err, user) {
+      if(err) return console.log(err);
+      res.json(user)
+    })
+  })
+  .patch(function (req, res) {
+    User.findByIdAndUpdate(req.params.id, req.body, {new:true}, function (err, user) {
+      if (err) return console.log(err);
+      res.redirect('/profile')
+    })
+  })
+  .delete(function(req, res) {
+    User.findByIdAndRemove(req.params.id, function(err, user) {
+      if (err) throw err;
+      res.json({success: true, user: user})
+    })
+  })
+
+userRouter.route('/users/:id/edit')
+  .get(function (req, res) {
+    User.findById(req.params.id, function(err, user) {
+      res.render('edit', {user: user})
+    })
+  })
+
 
 userRouter.get('/profile', isLoggedIn, function (req, res) {
   res.render('profile', {user: req.user})

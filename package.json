@@ -1,5 +1,5 @@
 {
-  "name": "chetflix_and_nil",
+  "name": "Netflix_and_Chill",
   "version": "0.0.1",
   "description": "Social networking and dating site based off common media interests with integrated movie data api",
   "main": "server.js",
@@ -19,6 +19,7 @@
     "express": "^4.14.0",
     "express-ejs-layouts": "^2.1.0",
     "express-session": "^1.13.0",
+    "method-override": "^2.3.6",
     "mongoose": "^4.5.2",
     "morgan": "^1.7.0",
     "passport": "^0.3.2",

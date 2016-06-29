@@ -2,11 +2,15 @@
     <h1><%= user.local.name %></h1>
     <a href="/logout" class="btn btn-default btn-sm">Logout</a>
 </div>
+<a href="/users/<%= user._id %>/edit" class= "btn btn-default btn-lg">Edit</a>
 <div class="row">
     <div class="col-sm-6 col-sm-offset-3">
         <div class="well">
             <h3><%= user.local.name %></h3>
                 <p>
+                    <img id='profile-image' style="width:300px; height:300px" />
+                    <a href="https://signup.wordpress.com/signup/?ref=oauth2&oauth2_redirect=8cc7be1bd5398464de0dd62439d0761a%40https%3A%2F%2Fpublic-api.wordpress.com%2Foauth2%2Fauthorize%2F%3Fclient_id%3D1854%26response_type%3Dcode%26blog_id%3D0%26state%3D99a2088d617f242667d57a1fa4b3709cc63fc9b7064361a3a6c1bb06aad84009%26redirect_uri%3Dhttps%253A%252F%252Fen.gravatar.com%252Fconnect%252F%253Faction%253Drequest_access_token%26jetpack-code%26jetpack-user-id%3D0%26action%3Doauth2-login&wpcom_connect=1">Sign Up For Gravatar To Upload a Profile Pic</a>
+<br>
                     <strong>Name</strong>: <%= user.local.name %><br>
                     <!-- <strong>id</strong>: <% user._id %><br> -->
                     <strong>email</strong>: <%= user.local.email %><br>
@@ -23,3 +27,12 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+// this code pulls avatar from gravatar and codifys user email address so gravatar can render image
+  $(function () {
+    console.log("its working");
+    var userEmail = "<%= user.local.email%>"
+    $('#profile-image').attr('src', 'http://gravatar.com/avatar/' + MD5(userEmail) + '?s=600')
+  })
+</script>
