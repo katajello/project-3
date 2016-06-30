@@ -13,6 +13,8 @@ movieRouter.route("/info/:id")
       res.render('info', {imdb: req.params.id})
     })
 
+// on movie creation in database, check to see if the same movie exists in our database
+
 // app.get('/search', function(req, res) {
 // ApiUrl = "http://www.omdbapi.com/?t=" + req.query.t
 //
