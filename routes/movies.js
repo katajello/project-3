@@ -8,7 +8,10 @@ movieRouter.route('/search')
        res.render('search')
      })
 
-
+movieRouter.route("/info/:id")
+    .get(function(req, res) {
+      res.render('info', {imdb: req.params.id})
+    })
 
 // app.get('/search', function(req, res) {
 // ApiUrl = "http://www.omdbapi.com/?t=" + req.query.t
