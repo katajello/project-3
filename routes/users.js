@@ -2,6 +2,7 @@ var
   express = require('express'),
   passport = require('passport'),
   User = require('../models/User.js'),
+  Movie = require('../models/Movie.js'),
   userRouter = express.Router()
 
 
