@@ -5,6 +5,15 @@ var
   userRouter = express.Router()
 
 
+// root route for home page
+userRouter.get('/', function (req, res) {
+  User.find({}, function(err, users) {
+    if (err) throw err;
+    res.render('index', {user: req.user, users: users})
+  })
+})
+
+
 userRouter.route('/login')
   .get(function (req, res) {
     res.render('login', {flash: req.flash('loginMessage')})
@@ -83,7 +92,7 @@ function isLoggedIn(req, res, next) {
      res.redirect('/')
    })
 
- 
+
 
 
 module.exports = userRouter

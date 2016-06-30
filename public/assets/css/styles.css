@@ -1,0 +1,9 @@
+#search-results {
+  background: #888;
+  display: none;
+  overflow: auto;
+  position: absolute;
+  width: 330px;
+  z-index: 99;
+
+}

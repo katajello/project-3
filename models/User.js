@@ -12,7 +12,7 @@ var
       bio: String,
       occupation: String,
       age: {type: Number, min: 18},
-      height: Number,
+      height: String,
       ethnicity: String,
       interestedIn: String,
       movie: [{type: Schema.Types.ObjectId, ref: 'Movie'}]
