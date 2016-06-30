@@ -1,0 +1,58 @@
+<h1>Movie Info</h1>
+
+<ul class="list-group">
+  <li id="title" class="list-group-item">Title: </li>
+  <li id="year" class="list-group-item">Year: </li>
+  <li id="released" class="list-group-item">Released: </li>
+  <li id="runtime" class="list-group-item">Runtime: </li>
+  <li id="genre" class="list-group-item">Genre: </li>
+  <li id="director" class="list-group-item">Director: </li>
+  <li id="actors" class="list-group-item">Actors/Actresses: </li>
+  <li id="plot" class="list-group-item">Plot: </li>
+  <li id="language" class="list-group-item">Language: </li>
+  <li id="country" class="list-group-item">Country: </li>
+  <li id="awards" class="list-group-item">Awards: </li>
+  <li id="metascore" class="list-group-item">Metascore: </li>
+  <li id="imdbrating" class="list-group-item">Imdb Rating: </li>
+  <li id="imdbvotes" class="list-group-item">Imbd Votes: </li>
+  <li id="imdbid" class="list-group-item">Imdb Id: </li>
+  <img id="poster" src="list-group-item">
+
+</ul>
+
+
+<script type="text/javascript">
+
+
+window.onload = function(movie) {
+  var imdb = "<%= imdb %>"
+  console.log("hi")
+
+  $.ajax({
+    url: 'http://www.omdbapi.com/?i=' + imdb,
+    type: 'GET'
+  })
+  .done(function(data){
+    $('#title').html($('#title').html()+ data.Title)
+    $('#year').html($('#year').html()+ data.Year)
+    $('#released').html($('#released').html()+ data.Released)
+    $('#runtime').html($('#runtime').html()+ data.Runtime)
+    $('#genre').html($('#genre').html()+ data.Genre)
+    $('#director').html($('#director').html()+ data.Director)
+    $('#actors').html($('#actors').html()+ data.Actors)
+    $('#plot').html($('#plot').html()+ data.Plot)
+    $('#language').html($('#language').html()+ data.Language)
+    $('#country').html($('#country').html()+ data.Country)
+    $('#awards').html($('#awards').html()+ data.Awards)
+    $('#metascore').html($('#metascore').html()+ data.Metascore)
+    $('#imdbrating').html($('#imdbrating').html()+ data.imdbRating)
+    $('#imdbvotes').html($('#imdbvotes').html()+ data.imdbVotes)
+    $('#imdbid').html($('#imdbid').html()+ data.imdbID)
+    $('#poster').attr("src", data.Poster)
+    // fix console.log error
+  })
+
+
+}
+
+</script>

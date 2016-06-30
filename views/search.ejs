@@ -2,7 +2,7 @@
 <div class="row">
   <div class="col-lg-6">
     <div class="input-group">
-      <input type="text" id="search-input" class="form-control" placeholder="Search movies..." value="">
+      <input type="text" id="search-field" class="form-control" placeholder="Search movies..." value="">
       <button class="btn btn-default btn-sl active search-button" type="button">Go!</button>
 
 
@@ -24,7 +24,7 @@
 
         var $movieResults = $('#movie-results')
 
-        var $inputBox = $('#search-input')
+        var $inputBox = $('#search-field')
       $('button').on('click', function() {
         $.ajax({
                   url: 'http://www.omdbapi.com/?s=' + $inputBox.val(),
@@ -41,13 +41,46 @@
                   // $type.text(data.Search[0].Type)
                   // $img.attr("src", data.Search[0].Poster)
                   // $poster.text(data.Search[0].Poster)
-                  data.Search.forEach(function (movie) {
-                    $movieResults.append('<tr><td>' + '<a href="http://www.omdbapi.com/?t=' + movie.Title + '">' + movie.Title + '</a>' + '</td><td>' + movie.Year + '</td><td>' + movie.Type + '</td><td>' + movie.imdbID +
+                  $movieResults.html("")
+                  data.Search.forEach(function(movie) {
+                    $movieResults.append('<tr><td>' + '<a href="/info/' + movie.imdbID + '">' + movie.Title + '</a>' + '</td><td>' + movie.Year + '</td><td>' + movie.Type + '</td><td>' + movie.imdbID +
                     '</td><td>' + '<button type="submit" class="btn btn-info btn-sl">Add</button>' + '</td><td><a href="http://www.omdbapi.com/?t=' + movie.Title + '"><img class="thumbnail" src="' + movie.Poster + '"/></a></td></tr>')
                    })
                  })
       })
     }
+      //make variable for title
+      //get title, input title into function. make function to input api into table
+      //   var $info = $('#info')
+      //   var $inputBox = $('#search-field')
+      // $('info').on('click', function() {
+      //   console
+      //   $.ajax({
+      //             url: 'http://www.omdbapi.com/?t=' + movie.Title(),
+      //             method: 'GET'
+      //           })
+      //           // .done(function(){
+      //           //   newRow()
+      //           //  })
+      //           .done(function(data){
+      //             console.log("Hi");
+      //             // title.append(data.Search[0].Title)
+      //             // $title.text(data.Search[0].Title)
+      //             // $year.text(data.Search[0].Year)
+      //             // $imdbid.text(data.Search[0].imdbID)
+      //             // $type.text(data.Search[0].Type)
+      //             // $img.attr("src", data.Search[0].Poster)
+      //             // $poster.text(data.Search[0].Poster)
+      //             // $movieResults.html("")
+      //             // data.Search.forEach(function(movie) {
+      //             //   $movieResults.append('<tr><td>' + '<a href="http://www.omdbapi.com/?t=' + movie.Title + '">' + movie.Title + '</a>' + '</td><td>' + movie.Year + '</td><td>' + movie.Type + '</td><td>' + movie.imdbID +
+      //             //   '</td><td>' + '<button type="submit" class="btn btn-info btn-sl">Add</button>' + '</td><td><a href="http://www.omdbapi.com/?t=' + movie.Title + '"><img class="thumbnail" src="' + movie.Poster + '"/></a></td></tr>')
+      //             //  })
+      //            })
+      // })
+
+
+
 
 
       </script>
