@@ -48,6 +48,7 @@ userRouter.route('/users/:id')
   })
   .patch(function (req, res) {
     User.findByIdAndUpdate(req.params.id, req.body, {new:true}, function (err, user) {
+      console.log("req.body",req.body);
       if (err) return console.log(err);
       res.redirect('/profile')
     })
@@ -62,7 +63,9 @@ userRouter.route('/users/:id')
 userRouter.route('/users/:id/edit')
   .get(function (req, res) {
     User.findById(req.params.id, function(err, user) {
-      res.render('edit', {user: user})
+      // console.log('user.local.bio.toString',user.local.bio.toString);
+      // console.log('String(user.local.bio)',String(user.local.bio));
+      res.render('edit', {user:user})
     })
   })
 
