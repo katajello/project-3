@@ -48,9 +48,18 @@ $('#search-button').on('click', function() {
     $('.add-button').click(function(){
       var $button = $(this)
       var id = $button.attr('id')
-      var user = "<%= user._id %>"
-      console.log(id)
-      console.log(user)
+      if ('<%= user._id %>') {
+        var user = "<%= user._id %>"
+      }
+      $.ajax({
+        url: '/users/' + user + '/movies',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({"title": "up", "imdbID": "1293919"})
+      })
+      .done(function(data){
+        console.log(data)
+      })
     })
   })
 })

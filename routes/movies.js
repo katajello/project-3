@@ -6,14 +6,24 @@ var
 
 
 movieRouter.route('/search')
-     .get(function (req, res) {
-       res.render('search', {user: req.user})
-     })
+  .get(function (req, res) {
+    if (req.user) {
+      res.render('search', {user: req.user})
+    } else {
+      res.redirect('/login')
+    }
+})
 
 movieRouter.route("/info/:id")
-    .get(function(req, res) {
+  .get(function(req, res) {
+    if (req.user) {
       res.render('info', {imdb: req.params.id})
-    })
+    } else {
+      res.redirect('/login')
+    }
+})
+
+
 
 // on display of movies, check current user's movies to see if they liked anything with the same imdbID
 // if they click on one they don't have, check to see if that movie exists in database, then add it to that user and add user to liked_by

@@ -63,6 +63,28 @@ userRouter.route('/users/:id')
     })
   })
 
+userRouter.route('/users/:id/movies')
+  .get(function(req, res) {
+    User.findById(req.params.id, function(err, user) {
+      if (err) throw err;
+      res.json(user)
+    })
+  })
+  .post(function(req, res) {
+    // first we find the user that made the request
+    User.findById(req.params.id, function(err, user) {
+      if (err) throw err;
+      // then we check to see if the movie exists in the database
+      Movie.findOne({"imdbID": req.imdbID}, function(err, movie) {
+        if (movie) res.json({message: "Movie Found!"})
+        else res.json({message: 'No Movie Found!'})
+      })
+      // if it doesnt exist, we save it to the database
+      // we then push the movie to the user movies key and save the user to the movie _likedBy
+      // we then return the movie that was saved as a json object
+    })
+  })
+
 userRouter.route('/users/:id/edit')
   .get(function (req, res) {
     User.findById(req.params.id, function(err, user) {
