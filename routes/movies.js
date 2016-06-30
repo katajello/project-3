@@ -7,7 +7,7 @@ var
 
 movieRouter.route('/search')
      .get(function (req, res) {
-       res.render('search')
+       res.render('search', {user: req.user})
      })
 
 movieRouter.route("/info/:id")

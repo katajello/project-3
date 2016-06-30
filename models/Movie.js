@@ -2,7 +2,7 @@ var
   mongoose = require('mongoose'),
   Schema = mongoose.Schema,
   movieSchema = new Schema({
-      _likedBy: [{type: Schema.Types.ObjectId, ref: 'User'}]
+      _likedBy: [{type: Schema.Types.ObjectId, ref: 'User'}],
       Title: String,
       Year: String,
       Rated: String,
