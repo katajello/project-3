@@ -24,6 +24,7 @@ var
       var newUser = new User()
       newUser.local.name = req.body.name
       newUser.local.email = email
+      // export MD5 package into passport file to MD5(email) and concat string to have image url
       newUser.local.password = newUser.generateHash(password)
 
       newUser.save(function (err) {

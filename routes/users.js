@@ -29,7 +29,7 @@ userRouter.route('/signup')
     res.render('signup', {flash: req.flash('signupMessage')})
   })
   .post(passport.authenticate('local-signup', {
-    successRedirect: '/profile',
+    successRedirect: '/edit-profile',
     failureRedirect: '/signup'
   }))
 
@@ -62,13 +62,11 @@ userRouter.route('/users/:id')
     })
   })
 
-userRouter.route('/users/:id/edit')
+userRouter.route('/edit-profile')
   .get(function (req, res) {
-    User.findById(req.params.id, function(err, user) {
-      // console.log('user.local.bio.toString',user.local.bio.toString);
-      // console.log('String(user.local.bio)',String(user.local.bio));
-      res.render('edit', {user:user})
-    })
+    // console.log('user.local.bio.toString',user.local.bio.toString);
+    // console.log('String(user.local.bio)',String(user.local.bio));
+    res.render('edit', {user: req.user})
   })
 
 userRouter.route('/users/:id/otherprofile')
