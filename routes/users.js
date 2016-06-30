@@ -62,13 +62,11 @@ userRouter.route('/users/:id')
     })
   })
 
-userRouter.route('/users/:id/edit')
+userRouter.route('/profile/edit')
   .get(function (req, res) {
-    User.findById(req.params.id, function(err, user) {
-      // console.log('user.local.bio.toString',user.local.bio.toString);
-      // console.log('String(user.local.bio)',String(user.local.bio));
-      res.render('edit', {user:user})
-    })
+    // console.log('user.local.bio.toString',user.local.bio.toString);
+    // console.log('String(user.local.bio)',String(user.local.bio));
+    res.render('edit', {user: req.user})
   })
 
 userRouter.route('/users/:id/otherprofile')
