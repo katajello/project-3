@@ -12,10 +12,11 @@
         <div class="col-sm-6">
           <h1><%= user.local.name %></h1>
           <p><small>Age:</small><b> <%= user.local.age %></b></p>
+          <p><small>Gender:</small><b> <%= user.local.gender %></b></p>
           <p><small>Location:</small><b> <%= user.local.location %></b></p>
           <p><small>Occupation:</small> <b><%= user.local.occupation %></b></p>
           <p><small>Ethnicity: </small><b><%= user.local.ethnicity %></b></p>
-          <p><small>Interested in: </small><b><%= user.local.interestedIn %></b></p>
+          <p><small>Interested in watching with: </small><b><%= user.local.interestedIn %></b></p>
         </div>
     </div>
       <div class="row">
@@ -23,7 +24,7 @@
           <p><small>Bio: </small> <%= user.local.bio %> </p>
         </div>
         <div class="col-xs-2">
-          <a href="/users/<%= user._id %>/edit" class= "btn btn-default">Edit</a>
+          <a href="/profile/edit" class= "btn btn-default">Edit</a>
         </div>
       </div>
     </div>
