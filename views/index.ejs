@@ -1,22 +1,69 @@
-
-<!-- /.navbar-collapse
-  </div><! /.container-fluid -->
-
 <div class="jumbotron">
-  <h1 class="display-3">Chetflix and Nil</h1>
+  <h1 class="display-3">LoveScene</h1>
   <p class="lead">We all watch movies! We all chill!  Why not Netflix and Chill with the people who share your interest.  Start browsing today.  Or if you don't have an account, signing up is easy.</p>
-  <hr class="m-y-2">
-  <!-- <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-  <p class="lead">
-    <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
-  </p> -->
+  <% if (!user) { %>
+    <hr class="m-y-2">
+    <div class="text-center">
+        <a href="/login" class="btn btn-primary btn-lg active">Login</a>
+        <a href="/signup" class="btn btn-default btn-lg active">Sign Up</a>
+    </div>
+  <% } %>
 </div>
-<div class="text-center col-md-8 col-md-offset-2">
 
-    <a href="/login" class="btn btn-primary btn-lg active">Login</a>
-    <a href="/signup" class="btn btn-default">Sign Up</a>
-<button type="button" class="">Sign Up</button>
-    <!-- <a href="/login" class="btn btn-default">Login</a>
-    <a href="/signup" class="btn btn-default">Signup</a> -->
-    <hr>
+<div id="user-display" class="text-center">
+  <h3>New Movie Lovers</h3>
+  <hr>
 </div>
+
+<script type="text/javascript">
+  var $display = $('#user-display')
+  // function for displaying users in rows on the page
+  function makeRows (source) {
+    // concatenate a long string to append to the user-display div
+    // start with declaring variables that will be reused
+    var rowStart = '<div class="row">'
+    var rowEnd = '</div>'
+    var profileDisplay = ''
+    // loop through the users that were returned in the ajax call
+    source.forEach(function(u, i) {
+      // start a new row at the beginning and at the beginning of the 5th iterations
+      if (i%4==0){
+        profileDisplay += rowStart
+      }
+      // for when we get avatars working correctly...
+      // var profilePic = '<img class="responsive" src="' + u.local.avatar + '"/>'
+      var newUser = '<a href="/users/' + u._id + '"><h4>' + u.local.name + '</h4></a>'
+      // avatar or other user data will be added into profile variable below when available
+      // col-md-3 used to fit 4 users per row and be responsive
+      var profile = '<div class="col-md-3">' + newUser + '</div>'
+      // add the assembled profile to the row
+      profileDisplay += profile
+      // end the row if it is on the 4th iteration or the last iteration
+      if ((i+1)%4==0 || i == source.length-1) {
+        profileDisplay += rowEnd
+      }
+    })
+    $display.append(profileDisplay)
+  }
+
+  // ajax call to get all users when page is loaded
+  $.ajax({
+    url: 'users',
+    type: 'GET'
+  })
+  .done(makeRows)
+  // .done(function(users){
+  //   users.forEach(function(u, i) {
+  //     if (i%4==0 && i > 0){
+  //       $display.append(clearfix)
+  //     }
+  //     // var profilePic = '<img class="responsive" src="' + u.local.avatar + '"/>'
+  //     var newUser = '<a href="/users/' + u._id + '"><h4>' + u.local.name + '</h4></a>'
+  //     var profile = '<div class="col-md-3">' + newUser + '</div>'
+  //     $display.append(profile)
+  //   })
+  //   $display.append(clearfix)
+  // })
+
+
+</script>

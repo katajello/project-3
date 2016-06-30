@@ -14,7 +14,7 @@ var
   passportConfig = require('./config/passport.js'),
   userRoutes = require('./routes/users.js'),
   movieRoutes = require('./routes/movies.js'),
-  cors = require('cors'),
+  cors = require('cors')
 
   PORT = process.env.PORT || 3000
 
