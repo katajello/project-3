@@ -14,7 +14,8 @@ var
       age: {type: Number, min: 18},
       height: String,
       ethnicity: String,
-      interestedIn: String
+      interestedIn: String,
+      movie: [{type: Schema.Types.ObjectId, ref: 'Movie'}]
     }
   })
 

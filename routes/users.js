@@ -4,6 +4,7 @@ var
   User = require('../models/User.js'),
   userRouter = express.Router()
 
+
 // root route for home page
 userRouter.get('/', function (req, res) {
   User.find({}, function(err, users) {
@@ -11,6 +12,7 @@ userRouter.get('/', function (req, res) {
     res.render('index', {user: req.user, users: users})
   })
 })
+
 
 userRouter.route('/login')
   .get(function (req, res) {
@@ -85,9 +87,21 @@ userRouter.get('/logout', function (req, res) {
   res.redirect('/')
 })
 
+userRouter.get('/sign-out', function (req, res) {
+  req.logout()
+  res.redirect('/')
+})
+
 function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()) return next()
   res.redirect('/')
 }
+
+ userRouter.get('/chetflix', function(req, res) {
+     res.redirect('/')
+   })
+
+
+
 
 module.exports = userRouter
