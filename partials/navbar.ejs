@@ -94,7 +94,7 @@
       var searchResults = []
       data.forEach(function(u) {
         if ($('#search-input').val().toLowerCase() == u.local.name.toLowerCase()) {
-          var link = '<a href="/users/' + u._id + '" >' + u.local.name + '</a>'
+          var link = '<a href="/users/' + u._id + '/otherprofile'+'" >' + u.local.name + '</a>'
           searchResults.push(link)
         }
       })
