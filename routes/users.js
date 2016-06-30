@@ -66,6 +66,12 @@ userRouter.route('/users/:id/edit')
     })
   })
 
+userRouter.route('/users/:id/otherprofile')
+.get(function (req, res) {
+  User.findById(req.params.id, function(err, user) {
+    res.render('otherprofile', {user: user})
+  })
+})
 
 userRouter.get('/profile', isLoggedIn, function (req, res) {
   res.render('profile', {user: req.user})
