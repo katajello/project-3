@@ -1,33 +1,6 @@
-<div class="row">
-  <div class="col-sm-10 col-sm-offset-1 well">
-    <div class="row">
+<h1>Movie Info</h1>
 
-      <div class="col-sm-4">
-          <h1>Movie Info</h1>
-        <img id="poster" src="list-group-item">
-      </div>
-        <div class="col-sm-8">
-          <p id="title" class="list-group-item">Title: </p>
-          <p id="year" class="list-group-item">Year: </p>
-          <p id="released" class="list-group-item">Released: </p>
-          <p id="runtime" class="list-group-item">Runtime: </p>
-          <p id="genre" class="list-group-item">Genre: </p>
-          <p id="director" class="list-group-item">Director: </p>
-          <p id="actors" class="list-group-item">Actors/Actresses: </p>
-          <p id="plot" class="list-group-item">Plot: </p>
-          <p id="language" class="list-group-item">Language: </p>
-          <p id="country" class="list-group-item">Country: </p>
-          <p id="awards" class="list-group-item">Awards: </p>
-          <p id="metascore" class="list-group-item">Metascore: </p>
-          <p id="imdbrating" class="list-group-item">Imdb Rating: </p>
-          <p id="imdbvotes" class="list-group-item">Imbd Votes: </p>
-    </div>
-    </div>
-</div>
-
-
-
-<%# <ul class="list-group col-">
+<ul class="list-group col-">
   <img id="poster" src="list-group-item">
   <li id="title" class="list-group-item">Title: </li>
   <li id="year" class="list-group-item">Year: </li>
@@ -42,9 +15,9 @@
   <li id="awards" class="list-group-item">Awards: </li>
   <li id="metascore" class="list-group-item">Metascore: </li>
   <li id="imdbrating" class="list-group-item">Imdb Rating: </li>
-  <li id="imdbvotes" class="list-group-item">Imbd Votes: </li>%>
+  <li id="imdbvotes" class="list-group-item">Imbd Votes: </li>
   <%# <li id="imdbid" class="list-group-item">Imdb Id: </li>%>
-<%# </ul>%>
+</ul>
 
 
 <script type="text/javascript">
