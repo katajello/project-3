@@ -28,25 +28,4 @@
       </div>
     </div>
 </div>
-
 </div>
-
-<script type="text/javascript">
-// this code pulls avatar from gravatar and codifys user email address so gravatar can render image
-  // $(function () {
-  //   var userEmail = "<%= user.local.email%>"
-  //   $('#profile-image').attr('src', 'http://gravatar.com/avatar/' + MD5(userEmail) + '?s=600')
-  // })
-
-  if ( !"<%= user.local.avatar %>" ) {
-    $.ajax({
-      url: '/users/<%=user._id%>',
-      type: 'PATCH',
-      contentType: 'application/json',
-      data: JSON.stringify({"local.avatar": "http://gravatar.com/avatar/" + MD5("<%= user.local.email %>") + "?s=600"})
-    })
-    .done(function(err, data) {
-      console.log(data)
-    })
-  }
-</script>

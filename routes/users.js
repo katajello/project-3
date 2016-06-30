@@ -29,7 +29,7 @@ userRouter.route('/signup')
     res.render('signup', {flash: req.flash('signupMessage')})
   })
   .post(passport.authenticate('local-signup', {
-    successRedirect: '/edit-profile',
+    successRedirect: '/profile',
     failureRedirect: '/signup'
   }))
 
@@ -62,7 +62,7 @@ userRouter.route('/users/:id')
     })
   })
 
-userRouter.route('/edit-profile')
+userRouter.route('/profile/edit')
   .get(function (req, res) {
     // console.log('user.local.bio.toString',user.local.bio.toString);
     // console.log('String(user.local.bio)',String(user.local.bio));

@@ -1,7 +1,8 @@
 var
   passport = require('passport'),
   LocalStrategy = require('passport-local').Strategy,
-  User = require('../models/User.js')
+  User = require('../models/User.js'),
+  MD5 = require('../public/assets/js/md5.js')
 
   passport.serializeUser(function (user, done) {
     done(null, user.id)
@@ -24,7 +25,8 @@ var
       var newUser = new User()
       newUser.local.name = req.body.name
       newUser.local.email = email
-      // export MD5 package into passport file to MD5(email) and concat string to have image url
+      // export MD5 package into passport file to MD5(email) and concat string to have image url set in avatar value
+      newUser.local.avatar = "http://gravatar.com/avatar/" + MD5(email) + "?s=600"
       newUser.local.password = newUser.generateHash(password)
 
       newUser.save(function (err) {
