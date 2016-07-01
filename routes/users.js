@@ -76,38 +76,17 @@ userRouter.route('/users/:id/movies')
       if (err) throw err;
       // then we check to see if the movie exists in the database
       Movie.findOne({"imdbID": req.body.imdbID}, function(err, movie) {
+        // if the movie already exists in the database
         if (movie) {
-          movie._likedBy.push(user)
-          movie.save(function(err, savedMovie) {
-            if (err) throw err;
-            user.local.movie.push(savedMovie);
-            user.save(function(err, savedUser){
-              if (err) throw err;
-              res.json(savedUser)
-            })
-          })
+        // link the movie and user and return in a json object
+          addMovie(movie, user)
         }
         else {
-          // create a new movie in the database with the omdbapi data
+          // else create a new movie in the database with the omdbapi data
           var newMovie = new Movie(req.body)
-          // add current user to list of users that like that movie
-          newMovie._likedBy.push(user)
-          // save the movie
-          newMovie.save(function(err, savedMovie){
-            if (err) throw err;
-            // add created movie to user's profile
-            user.local.movie.push(savedMovie)
-            // save user profile
-            user.save(function(err, savedUser) {
-              if (err) throw err;
-              res.json(savedUser)
-            })
-          })
+          addMovie(newMovie, user)
         }
       })
-      // if it doesnt exist, we save it to the database
-      // we then push the movie to the user movies key and save the user to the movie _likedBy
-      // we then return the movie that was saved as a json object
     })
   })
 
@@ -150,7 +129,20 @@ function isLoggedIn(req, res, next) {
      res.redirect('/')
    })
 
-
-
+function addMovie(movie, user) {
+  // add current user to list of users that like that movie
+  movie._likedBy.push(user)
+  // save the movie
+  movie.save(function(err, savedMovie){
+    if (err) throw err;
+    // add created movie to user's profile
+    user.local.movie.push(savedMovie)
+    // save user profile
+    user.save(function(err, savedUser) {
+      if (err) throw err;
+      res.json(savedUser)
+    })
+  })
+}
 
 module.exports = userRouter
