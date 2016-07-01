@@ -40,7 +40,6 @@ function addMovie() {
   $button.addClass('liked')
 }
 
-//////////////
 var $display = $('#results')
 // function for displaying users in rows on the page
 function makeRows (source) {
@@ -83,9 +82,6 @@ function makeRows (source) {
   })
   $display.append(movieDisplay)
 }
-
-
-//////////////
 
 $('#search-button').on('click', function() {
   $.ajax({
