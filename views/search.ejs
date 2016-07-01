@@ -38,30 +38,54 @@ function addMovie() {
   $button.html('Liked!')
 }
 
+//////////////
+var $display = $('#results')
+// function for displaying users in rows on the page
+function makeRows (source) {
+  $display.html('')
+  // concatenate a long string to append to the user-display div
+  // start with declaring variables that will be reused
+  var rowStart = '<div class="row">'
+  var rowEnd = '</div>'
+  var movieDisplay = ''
+  // loop through the users that were returned in the ajax call
+  source.forEach(function(movie, i) {
+    // start a new row at the beginning and at the beginning of the 5th iterations
+    if (i%3==0){
+      movieDisplay += rowStart
+    }
+    // for when we get avatars working correctly...
+    var posterImg = '<a href="/info/' + movie.imdbID + '"><img src="' + movie.Poster +'"/></a>'
+    var title = '<h4>' + movie.Title + '</h4>'
+    var year = '<h5>' + movie.Year + '</h5>'
+    var infoButton = '<a href="/info/' + movie.imdbID + '" class="btn btn-primary btn-lg">More Info</a>'
+    var likeButton = '<button id="' + movie.imdbID + '" class="btn btn-secondary btn-lg add-button text-right">Like!</button>'
+    var buttons = '<div class="btn-group">' + infoButton + likeButton + '</div>'
+    var caption = '<div class="caption">' + title + year + buttons + '</div>'
+    // avatar or other user data will be added into profile variable below when available
+    // col-md-3 used to fit 4 users per row and be responsive
+    var movieThumb = '<div class="col-md-4 thumbnail">' + posterImg + caption + '</div>'
+    // add the assembled profile to the row
+    movieDisplay += movieThumb
+    // end the row if it is on the 4th iteration or the last iteration
+    if ((i+1)%3==0 || i == source.length-1) {
+      movieDisplay += rowEnd
+    }
+  })
+  $display.append(movieDisplay)
+}
+
+
+//////////////
+
 $('#search-button').on('click', function() {
   $.ajax({
     url: 'http://www.omdbapi.com/?s=' + $inputBox.val(),
     method: 'GET'
   })
   .done(function(data){
-    $('#results').html("")
-    data.Search.forEach(function(movie, i) {
-      var movieHTML = '<div class="col-md-4 thumbnail">'
-      movieHTML += '<a href="/info/' + movie.imdbID + '"><img src="' + movie.Poster +'"/></a>'
-      movieHTML += '<div class="caption">'
-      movieHTML += '<h4>' + movie.Title + ' ' + '</h4>'
-      movieHTML += '<h5>' + movie.Year + '</h5>'
-      movieHTML += '<div class="btn-group"><a href="/info/' + movie.imdbID + '" class="btn btn-primary btn-lg">More Info</a>'
-      movieHTML += '<button id="' + movie.imdbID + '" class="btn btn-secondary btn-lg add-button text-right">Like!</button></div>'
-      movieHTML += '</div>'
-      movieHTML += '</div>'
-      $('#results').append(movieHTML)
-      userMovies.forEach(function(m) {
-        if (m.imdbID == movie.imdbID) {
-          like(m.imdbID)
-        }
-      })
-    })
+    $display.html("")
+    makeRows(data.Search)
     $('.add-button').click(addMovie)
   })
 })
