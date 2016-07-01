@@ -33,6 +33,13 @@ var $movieResults = $('#movie-results')
 var $inputBox = $('#search-field')
 var userMovies = <%- user.local %>.movie
 
+function like(movie){
+  // add class indicating that you have already liked this movie
+  $('#' + movie).prop('disabled', true)
+  $('#' + movie).html('Liked!')
+}
+
+
 function addMovie() {
   var $button = $(this)
   var id = $button.attr('id')
@@ -51,16 +58,12 @@ function addMovie() {
       data: JSON.stringify(omdbData)
     })
     .done(function(data){
-      like(data.imdbID)
     })
   })
+  $button.prop('disabled', true)
+  $button.html('Liked!')
 }
 
-function like(movie){
-  // add class indicating that you have already liked this movie
-  $('#' + movie).prop('disabled', true)
-  $('#' + movie).html('Liked!')
-}
 
 $('#search-button').on('click', function() {
   $.ajax({
