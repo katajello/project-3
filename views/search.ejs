@@ -37,6 +37,7 @@ function addMovie() {
   })
   $button.prop('disabled', true)
   $button.html('Liked!')
+  $button.addClass('liked')
 }
 
 //////////////
@@ -95,6 +96,7 @@ $('#search-button').on('click', function() {
     $display.html("")
     makeRows(data.Search)
     $('.add-button').click(addMovie)
+    $('.liked').off(addMovie)
   })
 })
 </script>
