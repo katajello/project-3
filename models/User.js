@@ -20,11 +20,11 @@ var
     }
   })
 
-
+// encrypts users password 8 times
   userSchema.methods.generateHash = function (password) {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(8))
   }
-
+// decrypts users password
   userSchema.methods.validPassword = function (password) {
     return bcrypt.compareSync(password, this.local.password)
   }
