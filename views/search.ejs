@@ -61,6 +61,13 @@ function makeRows (source) {
     var year = '<h5>' + movie.Year + '</h5>'
     var infoButton = '<a href="/info/' + movie.imdbID + '" class="btn btn-primary btn-lg">More Info</a>'
     var likeButton = '<button id="' + movie.imdbID + '" class="btn btn-secondary btn-lg add-button text-right">Like!</button>'
+    userMovies.forEach(function(m) {
+      // checks to see if any of the movie results are already in this user's profile
+      if (m.imdbID == movie.imdbID) {
+        // disables the button click and changes the text to "liked"
+        likeButton = '<button id="' + movie.imdbID + '" class="btn btn-secondary btn-lg add-button text-right liked" disabled>Liked!</button>'
+      }
+    })
     var buttons = '<div class="btn-group">' + infoButton + likeButton + '</div>'
     var caption = '<div class="caption">' + title + year + buttons + '</div>'
     // avatar or other user data will be added into profile variable below when available
@@ -72,14 +79,6 @@ function makeRows (source) {
     if ((i+1)%3==0 || i == source.length-1) {
       movieDisplay += rowEnd
     }
-    userMovies.forEach(function(m) {
-      if (m.imdbID == movie.imdbID) {
-        console.log(m.imdbID);
-        // add class indicating that you have already liked this movie
-        $('#' + movie.imdbID).prop('disabled', true)
-        $('#' + movie.imdbID).html('Liked!')
-      }
-    })
   })
   $display.append(movieDisplay)
 }
