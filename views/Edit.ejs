@@ -2,24 +2,22 @@
 
     <h1>Edit <%= user.local.name %></h1>
 
-
-
     <form action="<%= '/users/'+ user._id %>" method="POST">
         <input type="hidden" name="_method" value="PATCH">
         <div class="form-group">
-            <label>Name</label>
+            <label id='form-label'>Name</label>
             <input type="text" class="form-control" name="local.name" value="<%= user.local.name %>">
         </div>
         <div class="form-group">
-            <label>Email</label>
+            <label id='form-label'>Email</label>
             <input type="text" class="form-control" name="local.email" value="<%= user.local.email %>">
         </div>
         <div class="form-group">
-            <label>Age</label>
+            <label id='form-label'>Age</label>
             <input type="number" class="form-control" name="local.age" value="<%= user.local.age %>">
         </div>
         <div class="form-group">
-            <label>Gender</label><br>
+            <label id='form-label'>Gender</label><br>
             <label class="radio-inline">
                 <input type="radio" name="local.gender" id="inlineRadio1" value="Male"> Male
                 </label>
@@ -30,23 +28,23 @@
                 <input type="radio" name="local.gender" id="inlineRadio3" value="Other"> Other
             </label>
         <div class="form-group">
-            <label>Location</label>
+            <label id='form-label'>Location</label>
             <input type="text" class="form-control" name="local.location" value="<%= user.local.location %>">
         </div>
         <div class="form-group">
-            <label>Occupation</label>
+            <label id='form-label'>Occupation</label>
             <input type="text" class="form-control" name="local.occupation" value="<%= user.local.occupation %>">
         </div>
         <div class="form-group">
-            <label>Height</label>
+            <label id='form-label'>Height</label>
             <input type="text" class="form-control" name="local.height" value="<%= user.local.height %>">
         </div>
         <div class="form-group">
-            <label>Ethnicity</label>
+            <label id='form-label'>Ethnicity</label>
             <input type="text" class="form-control" name="local.ethnicity" value="<%= user.local.ethnicity %>">
         </div>
         <div class="form-group">
-            <label>Interested In Watching With?</label><br>
+            <label id='form-label'>Interested In Watching With?</label><br>
             <label class="radio-inline">
                 <input type="radio" name="local.interestedIn" id="inlineRadio1" value="Male"> Males
                 </label>
@@ -57,12 +55,12 @@
                 <input type="radio" name="local.interestedIn" id="inlineRadio3" value="Other"> Others
             </label>
         <div class="form-group">
-            <label>Bio</label>
+            <label id='form-label'>Bio</label>
             <input type="text" class="form-control" name="local.bio" placeholder="edit your bio here" value="<%= user.local.bio %>">
         </div>
 
 
-        <button type="submit" class="btn btn-warning btn-lg">Edit</button>
+        <button type="submit" class="btn btn-danger btn-lg">Edit</button>
     </form>
 
     <hr>
