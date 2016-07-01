@@ -5,7 +5,7 @@ Vist [Love Scene](http://lovescene.herokuapp.com/)
 [Love Scene](http://lovescene.herokuapp.com/) was created by Michael Ray, Ed Petil, and Katie Ouaknine
 
 ### Objective:
-[Love Scene](http://lovescene.herokuapp.com/) is an online dating platform for people who like to stream movies and television shows. Instead of using complicated algorythyms to find a mate, we simplified the search by using a single yet sometimes very fortelling criteria. Users can create a dating profile and then search for tv shows and movies they like or would be interested in seeing. Those tv/movie choices are added to their personal profile where other users can search and then compare interests. Need a movie buddy or a date? Love Scene can help you find a mate!
+[Love Scene](http://lovescene.herokuapp.com/) is an online dating platform for people who like to stream movies and television shows. Instead of using complicated algorithms to find a mate, we simplified the search by using a single yet sometimes very fortelling criteria. Users can create a dating profile and then search for tv shows and movies they like or would be interested in seeing. Those tv/movie choices are added to their personal profile where other users can search and then compare interests. Need a movie buddy or a date? Love Scene can help you find a mate!
 
 ### Installation Instructions
 Visit the site and sign-up for an account, or login if a user has already been created. Edit your profile to include whatever personal details you want! Follow the given link to gravatar to link your profile pic
@@ -71,7 +71,7 @@ The guidelines listed below were provided by the project markdown:
 
 * Chat between users for the purpose of setting up movie dates
 * Filter movies by genre
-* Filter users by Gender and/or Interestin preference
+* Filter users by Gender and/or Interest in preference
 * Hosted image service so users can have more than one image available on their profile
 * direct links to online streaming services that have been liked
 * integrate a google maps API so users can find other users near by
