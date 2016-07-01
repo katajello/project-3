@@ -39,7 +39,7 @@ a {
 }
 
 .jumbotron {
-  background-color: #41EAD4;
+  background: url('/background-blue-70.png');
   font-family: 'Righteous', cursive;
 }
 
