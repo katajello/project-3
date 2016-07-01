@@ -19,9 +19,16 @@
             <input type="number" class="form-control" name="local.age" value="<%= user.local.age %>">
         </div>
         <div class="form-group">
-            <label>Gender</label>
-            <input type="text" class="form-control" name="local.gender" value="<%= user.local.gender %>">
-        </div>
+            <label>Gender</label><br>
+            <label class="radio-inline">
+                <input type="radio" name="local.gender" id="inlineRadio1" value="Male"> Male
+                </label>
+                <label class="radio-inline">
+                <input type="radio" name="local.gender" id="inlineRadio2" value="Female"> Female
+                </label>
+                <label class="radio-inline">
+                <input type="radio" name="local.gender" id="inlineRadio3" value="Other"> Other
+            </label>
         <div class="form-group">
             <label>Location</label>
             <input type="text" class="form-control" name="local.location" value="<%= user.local.location %>">
@@ -39,9 +46,16 @@
             <input type="text" class="form-control" name="local.ethnicity" value="<%= user.local.ethnicity %>">
         </div>
         <div class="form-group">
-            <label>Interested In Watching With?</label>
-            <input type="text" class="form-control" name="local.interestedIn" value="<%= user.local.interestedIn %>">
-        </div>
+            <label>Interested In Watching With?</label><br>
+            <label class="radio-inline">
+                <input type="radio" name="local.interestedIn" id="inlineRadio1" value="Male"> Males
+                </label>
+                <label class="radio-inline">
+                <input type="radio" name="local.interestedIn" id="inlineRadio2" value="Female"> Females
+                </label>
+                <label class="radio-inline">
+                <input type="radio" name="local.interestedIn" id="inlineRadio3" value="Other"> Others
+            </label>
         <div class="form-group">
             <label>Bio</label>
             <input type="text" class="form-control" name="local.bio" placeholder="edit your bio here" value="<%= user.local.bio %>">
