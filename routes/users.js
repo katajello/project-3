@@ -79,12 +79,12 @@ userRouter.route('/users/:id/movies')
         // if the movie already exists in the database
         if (movie) {
         // link the movie and user and return in a json object
-          addMovie(movie, user)
+          res.json(addMovie(movie, user))
         }
         else {
           // else create a new movie in the database with the omdbapi data
           var newMovie = new Movie(req.body)
-          addMovie(newMovie, user)
+          res.json(addMovie(newMovie, user))
         }
       })
     })
@@ -140,7 +140,7 @@ function addMovie(movie, user) {
     // save user profile
     user.save(function(err, savedUser) {
       if (err) throw err;
-      res.json(savedUser)
+      return savedUser
     })
   })
 }

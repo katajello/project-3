@@ -31,20 +31,18 @@ var $type = $('#mtype')
 var $img = $('#mimg')
 var $movieResults = $('#movie-results')
 var $inputBox = $('#search-field')
-var userMovies = "<%= user.local.movie %>".split(',')
+var userMovies = <%- user.local %>.movie
 
 function addMovie() {
   var $button = $(this)
   var id = $button.attr('id')
   var user = "<%= user._id %>"
-
   $.ajax({
     url: 'http://www.omdbapi.com/?i=' + id,
     type: 'GET'
   })
   .done(function(omdbData) {
     console.log(omdbData)
-
     $.ajax({
       url: '/users/' + user + '/movies',
       type: 'POST',
@@ -53,9 +51,15 @@ function addMovie() {
       data: JSON.stringify(omdbData)
     })
     .done(function(data){
-      console.log(data)
+      like(data.imdbID)
     })
   })
+}
+
+function like(movie){
+  // add class indicating that you have already liked this movie
+  $('#' + movie).prop('disabled', true)
+  $('#' + movie).html('Liked!')
 }
 
 $('#search-button').on('click', function() {
@@ -70,8 +74,8 @@ $('#search-button').on('click', function() {
       $movieResults.append('<tr><td>' + '<a href="/info/' + movie.imdbID + '">' + movie.Title + '</a>' + '</td><td>' + movie.Year + '</td><td>' + movie.Type + '</td><td>' + movie.imdbID + '</td><td>' + '<button id="' + movie.imdbID + '" type="submit" class="btn btn-info btn-sl add-button">Add</button>'+
       '</td><td><a href="http://www.omdbapi.com/?t=' + movie.Title + '"><img class="thumbnail" src="' + movie.Poster + '"/></a></td></tr>')
       userMovies.forEach(function(m) {
-        if (m.imdbID = movie.imdbID) {
-          console.log("Same movie found!")
+        if (m.imdbID == movie.imdbID) {
+          like(m.imdbID)
         }
       })
     })

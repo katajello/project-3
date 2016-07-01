@@ -8,11 +8,16 @@ var
 movieRouter.route('/search')
   .get(function (req, res) {
     if (req.user) {
-      res.render('search', {user: req.user})
+      User.findById(req.user._id)
+      .populate('local.movie')
+      .exec(function(err, user){
+        if (err) throw err;
+        res.render('search', {user: user})
+      })
     } else {
       res.redirect('/login')
     }
-})
+  })
 
 movieRouter.route("/info/:id")
   .get(function(req, res) {
