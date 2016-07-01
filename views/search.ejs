@@ -5,162 +5,38 @@
       <input type="text" id="search-field" class="form-control" placeholder="Search movies..." value="">
       <button class="btn btn-default btn-sl active search-button" type="button">Go!</button>
 
-      <div id="results"></div>
-      <div class="row">
-        <%# <div class="col-sm-6 col-md-4">
-          <div class="thumbnail">%>
-            <%# <img src="" alt="...">%>
-            <%# <div class="caption">
-              <h3 id="mtitle"></h3>
-              <ul>
-                <li id="myear"></li>
-                <li id="mimdbid"></li>
-              </ul>
-              <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-            </div>%>
-          <%# </div>
-        </div>%>
-      </div>
+
+
+        <div class="row" id="results"></div>
+
       <script type="text/javascript">
-      window.onload = function(){
-
-        // var $title = $('#mtitle')
-        // var $year = $('#myear')
-        // var $imdbid = $('#mimdbid')
-        // var $type = $('#mtype')
-        //
-        // var $img = $('#mimg')
-        //
-        // var $caption = $('#caption')
-
+      window.onload = function () {
         var $inputBox = $('#search-field')
-      $('button').on('click', function() {
+        $('button').on('click', function() {
+          $.ajax({
+                url: 'http://www.omdbapi.com/?s=' + $inputBox.val(),
+                method: 'GET'
+          })
+          .done(function(data) {
+            $('#results').html("")
+            data.Search.forEach(function(movie, i) {
 
-         $.ajax({
-                   url: 'http://www.omdbapi.com/?s=' + $inputBox.val(),
-                   method: 'GET'
-                 })
+                   movieHTML = '<div class="col-md-4 thumbnail">'
+                     movieHTML += '<a href="/info/' + movie.imdbID + '"><img src="' + movie.Poster +'"/></a>'
+                     movieHTML += '<div class="caption">'
+                       movieHTML += '<h4>' + movie.Title + ' ' + '</h4>'
+                         movieHTML += '<h5>' + movie.Year + '</h5>'
+                          movieHTML += '<a href="/info/' + movie.imdbID + '" class="btn btn-primary btn-lg">More Info</a>'
 
-                 .done(function(data){
-                   console.log(data)
-                   $('#results').html("")
-                   data.Search.forEach(function(movie, i) {
-
-                    //  here, you'd open the row (but only before adding the first column of the row)
-
-                     movieHTML = '<div class="col-sm-6 col-md-4">'
-                      movieHTML += '<div class="thumbnail">'
-                        movieHTML += '<a href="/info/' + movie.imdbID + '"><img src="' + movie.Poster +'"/></a>'
-                        movieHTML += '<div class="caption">'
-                          movieHTML += '<h4>' + movie.Title + ' ' + i + '</h4>'
-                            movieHTML += '<h5>' + movie.Year + '</h5>'
-                          movieHTML += '<a href="/info/' + movie.imdbID + '">' + "More Info" + '</a>'
-                        movieHTML += '</div>'
-                      movieHTML += '</div>'
 
                      movieHTML += '</div>'
-
-                     $('#results').append(movieHTML)
-
-                    //  close the row, but only after three columns have been appended
-
-                    // $movieResults.append('<tr><td>' + '<a href="/info/' + movie.imdbID + '">' + movie.Title + '</a>' + '</td><td>' + movie.Year + '</td><td>' + movie.Type + '</td><td>' + movie.imdbID +
-                    // '</td><td>' + '<button type="submit" class="btn btn-info btn-sl">Add</button>' + '</td><td><a href="/info/' + movie.imdbID + '"><img class="thumbnail" src="' + movie.Poster + '"/></a></td></tr>')
-                    })
-                  })
-      })
-    }
-    // function makeRows (source) {
-    //   // concatenate a long string to append to the user-display div
-    //   // start with declaring variables that will be reused
-    //   var rowStart = '<div class="row">'
-    //   var rowEnd = '</div>'
-    //   var profileDisplay = ''
-    //   // loop through the users that were returned in the ajax call
-    //   source.forEach(function(u, i) {
-    //     // start a new row at the beginning and at the beginning of the 5th iterations
-    //     if (i%4==0){
-    //       profileDisplay += rowStart
-    //     }
-    //     // for when we get avatars working correctly...
-    //     // var profilePic = '<img class="responsive" src="' + u.local.avatar + '"/>'
-    //     var newUser = '<a href="/users/' + u._id + '"><h4>' + u.local.name + '</h4></a>'
-    //     // avatar or other user data will be added into profile variable below when available
-    //     // col-md-3 used to fit 4 users per row and be responsive
-    //     var profile = '<div class="col-md-3">' + newUser + '</div>'
-    //     // add the assembled profile to the row
-    //     profileDisplay += profile
-    //     // end the row if it is on the 4th iteration or the last iteration
-    //     if ((i+1)%4==0 || i == source.length-1) {
-    //       profileDisplay += rowEnd
-    //     }
-    //   })
-    //   $display.append(profileDisplay)
-    // }
-    //
-    // // ajax call to get all users when page is loaded
-    // $.ajax({
-    //   url: 'users',
-    //   type: 'GET'
-    // })
-    // .done(makeRows)
-      </script>
-      <%# <script type="text/javascript">
-      window.onload = function(){
-
-        var $title = $('#mtitle')
-        var $year = $('#myear')
-        var $imdbid = $('#mimdbid')
-        var $type = $('#mtype')
-
-        var $img = $('#mimg')
-
-        var $movieResults = $('#movie-results')
-
-        var $inputBox = $('#search-field')
-      $('button').on('click', function() {
-        $.ajax({
-                  url: 'http://www.omdbapi.com/?s=' + $inputBox.val(),
-                  method: 'GET'
-                })
-
-                .done(function(data){
-
-                  $movieResults.html("")
-                  data.Search.forEach(function(movie) {
-                    $movieResults.append('<tr><td>' + '<a href="/info/' + movie.imdbID + '">' + movie.Title + '</a>' + '</td><td>' + movie.Year + '</td><td>' + movie.Type + '</td><td>' + movie.imdbID +
-                    '</td><td>' + '<button type="submit" class="btn btn-info btn-sl">Add</button>' + '</td><td><a href="/info/' + movie.imdbID + '"><img class="thumbnail" src="' + movie.Poster + '"/></a></td></tr>')
-                   })
-                 })
-      })
-    }
-
-      </script>%>
-    </div>
-  <%# </div>%>
-  <%# </div>%>
-  <%# <table class="table table-hover">
-    <th>Title</th>
-    <th>Year</th>
-    <th>Type</th>
-    <th>imdbID</th>
-    <th>Add Movie</th>
-    <th>Poster</th>
-
-  </table>
+                   movieHTML += '</div>'
 
 
-  <table class="table">
-        <thead>
-            <tr>
+                  $('#results').append(movieHTML)
 
-</tr>
-
-
-</thead>
-        <tbody id="movie-results">
-
-
-
-        </tbody>
-      </table>%>
+            })
+          })
+        })
+      }
+</script>
