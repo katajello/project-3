@@ -1,35 +1,10 @@
-<div class="row">
-  <div class="col-lg-6">
-    <div class="input-group">
-      <input type="text" id="search-field" class="form-control" placeholder="Search movies..." value="">
-      <button id="search-button" class="btn btn-default btn-sl active search-button" type="button">Go!</button>
-    </div>
-  </div>
+<div class="input-group">
+  <input type="text" id="search-field" class="form-control" placeholder="Search movies..." value="">
+  <button id="search-button" class="btn btn-default btn-sl active search-button" type="button">Go!</button>
+  <div class="row" id="results"></div>
 </div>
-<table class="table table-hover">
-  <th>Title</th>
-  <th>Year</th>
-  <th>Type</th>
-  <th>imdbID</th>
-  <th>Add Movie</th>
-  <th>Poster</th>
-</table>
-<table class="table">
-  <thead>
-    <tr>
-    </tr>
-  </thead>
-  <tbody id="movie-results">
-  </tbody>
-</table>
 
 <script type="text/javascript">
-var $title = $('#mtitle')
-var $year = $('#myear')
-var $imdbid = $('#mimdbid')
-var $type = $('#mtype')
-var $img = $('#mimg')
-var $movieResults = $('#movie-results')
 var $inputBox = $('#search-field')
 var userMovies = <%- user.local %>.movie
 
@@ -38,7 +13,6 @@ function like(movie){
   $('#' + movie).prop('disabled', true)
   $('#' + movie).html('Liked!')
 }
-
 
 function addMovie() {
   var $button = $(this)
@@ -64,18 +38,24 @@ function addMovie() {
   $button.html('Liked!')
 }
 
-
 $('#search-button').on('click', function() {
   $.ajax({
     url: 'http://www.omdbapi.com/?s=' + $inputBox.val(),
     method: 'GET'
   })
   .done(function(data){
-    $movieResults.html("")
-    // refactor up this data eventually
-    data.Search.forEach(function(movie) {
-      $movieResults.append('<tr><td>' + '<a href="/info/' + movie.imdbID + '">' + movie.Title + '</a>' + '</td><td>' + movie.Year + '</td><td>' + movie.Type + '</td><td>' + movie.imdbID + '</td><td>' + '<button id="' + movie.imdbID + '" type="submit" class="btn btn-info btn-sl add-button">Add</button>'+
-      '</td><td><a href="http://www.omdbapi.com/?t=' + movie.Title + '"><img class="thumbnail" src="' + movie.Poster + '"/></a></td></tr>')
+    $('#results').html("")
+    data.Search.forEach(function(movie, i) {
+      var movieHTML = '<div class="col-md-4 thumbnail">'
+      movieHTML += '<a href="/info/' + movie.imdbID + '"><img src="' + movie.Poster +'"/></a>'
+      movieHTML += '<div class="caption">'
+      movieHTML += '<h4>' + movie.Title + ' ' + '</h4>'
+      movieHTML += '<h5>' + movie.Year + '</h5>'
+      movieHTML += '<div class="btn-group"><a href="/info/' + movie.imdbID + '" class="btn btn-primary btn-lg">More Info</a>'
+      movieHTML += '<button id="' + movie.imdbID + '" class="btn btn-secondary btn-lg add-button text-right">Like!</button></div>'
+      movieHTML += '</div>'
+      movieHTML += '</div>'
+      $('#results').append(movieHTML)
       userMovies.forEach(function(m) {
         if (m.imdbID == movie.imdbID) {
           like(m.imdbID)
