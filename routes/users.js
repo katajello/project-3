@@ -90,12 +90,9 @@ userRouter.route('/users/:id/movies')
     })
   })
 
-userRouter.route('/users/:id/edit')
-  .get(function (req, res) {
-    // console.log('user.local.bio.toString',user.local.bio.toString);
-    // console.log('String(user.local.bio)',String(user.local.bio));
-    res.render('edit', {user: req.user})
-  })
+userRouter.get('/profile/edit', isLoggedIn, function(req, res) {
+  res.render('edit', {user: req.user})
+})
 
 userRouter.route('/users/:id/otherprofile')
 .get(function (req, res) {
