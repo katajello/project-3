@@ -1,17 +1,58 @@
 var
-express = require('express')
-movieRouter = express.Router()
+  express = require('express'),
+  Movie = require('../models/Movie.js'),
+  User = require('../models/User.js'),
+  movieRouter = express.Router()
 
 
 movieRouter.route('/search')
-     .get(function (req, res) {
-       res.render('search')
-     })
+  .get(function (req, res) {
+    if (req.user) {
+      User.findById(req.user._id)
+      .populate('local.movie')
+      .exec(function(err, user){
+        if (err) throw err;
+        res.render('search', {user: user})
+      })
+    } else {
+      res.redirect('/login')
+    }
+  })
 
 movieRouter.route("/info/:id")
-    .get(function(req, res) {
+  .get(function(req, res) {
+    if (req.user) {
       res.render('info', {imdb: req.params.id})
+    } else {
+      res.redirect('/login')
+    }
+})
+
+movieRouter.get('/movies', function(req, res){
+  Movie.find({}, function(err, movies){
+    res.json(movies)
+  })
+})
+
+movieRouter.route('/movies/:id')
+  .get(function(req, res) {
+    Movie.findById(req.params.id, function(err, movie) {
+      if (err) throw err;
+      res.json(movie)
     })
+  })
+  .delete(function(req, res) {
+    Movie.findByIdAndRemove(req.params.id, function(err, movie) {
+      if (err) throw err;
+      res.json({success: true, message: "deleted!", movie: movie})
+    })
+  })
+
+// on display of movies, check current user's movies to see if they liked anything with the same imdbID
+// if they click on one they don't have, check to see if that movie exists in database, then add it to that user and add user to liked_by
+// if movie doesnt exist in database, add it and add the current_user to the liked_by
+// don't
+
 
 // app.get('/search', function(req, res) {
 // ApiUrl = "http://www.omdbapi.com/?t=" + req.query.t

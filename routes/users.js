@@ -2,6 +2,7 @@ var
   express = require('express'),
   passport = require('passport'),
   User = require('../models/User.js'),
+  Movie = require('../models/Movie.js'),
   userRouter = express.Router()
 
 
@@ -62,7 +63,34 @@ userRouter.route('/users/:id')
     })
   })
 
-userRouter.route('/profile/edit')
+userRouter.route('/users/:id/movies')
+  .get(function(req, res) {
+    User.findById(req.params.id, function(err, user) {
+      if (err) throw err;
+      res.json(user)
+    })
+  })
+  .post(function(req, res) {
+    // first we find the user that made the request
+    User.findById(req.params.id, function(err, user) {
+      if (err) throw err;
+      // then we check to see if the movie exists in the database
+      Movie.findOne({"imdbID": req.body.imdbID}, function(err, movie) {
+        // if the movie already exists in the database
+        if (movie) {
+        // link the movie and user and return in a json object
+          res.json(addMovie(movie, user))
+        }
+        else {
+          // else create a new movie in the database with the omdbapi data
+          var newMovie = new Movie(req.body)
+          res.json(addMovie(newMovie, user))
+        }
+      })
+    })
+  })
+
+userRouter.route('/users/:id/edit')
   .get(function (req, res) {
     // console.log('user.local.bio.toString',user.local.bio.toString);
     // console.log('String(user.local.bio)',String(user.local.bio));
@@ -99,7 +127,20 @@ function isLoggedIn(req, res, next) {
      res.redirect('/')
    })
 
-
-
+function addMovie(movie, user) {
+  // add current user to list of users that like that movie
+  movie._likedBy.push(user)
+  // save the movie
+  movie.save(function(err, savedMovie){
+    if (err) throw err;
+    // add created movie to user's profile
+    user.local.movie.push(savedMovie)
+    // save user profile
+    user.save(function(err, savedUser) {
+      if (err) throw err;
+      return savedUser
+    })
+  })
+}
 
 module.exports = userRouter

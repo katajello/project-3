@@ -1,124 +1,88 @@
-
 <div class="row">
   <div class="col-lg-6">
     <div class="input-group">
       <input type="text" id="search-field" class="form-control" placeholder="Search movies..." value="">
-      <button class="btn btn-default btn-sl active search-button" type="button">Go!</button>
-
-
-      <script type="text/javascript">
-      window.onload = function(){
-      //   data.Search
-        // var content = '<td><input class="content" type="text" value= "' + data.Search.title + '"</td>'
-        // var completedButton = '<td><button class="completed pure-button">' + source.completed + '</button></td>'
-        // var deleteButton = '<td><button class= "delete pure-button">Delete?</button></td>'
-        // var $row = $('<tr id="' + source._id + '"></tr>')
-        // $row.append(content + completedButton + deleteButton)
-        // body.append($row);
-        var $title = $('#mtitle')
-        var $year = $('#myear')
-        var $imdbid = $('#mimdbid')
-        var $type = $('#mtype')
-        // var $poster = $('#mposter')
-        var $img = $('#mimg')
-
-        var $movieResults = $('#movie-results')
-
-        var $inputBox = $('#search-field')
-      $('button').on('click', function() {
-        $.ajax({
-                  url: 'http://www.omdbapi.com/?s=' + $inputBox.val(),
-                  method: 'GET'
-                })
-                // .done(function(){
-                //   newRow()
-                //  })
-                .done(function(data){
-                  // title.append(data.Search[0].Title)
-                  // $title.text(data.Search[0].Title)
-                  // $year.text(data.Search[0].Year)
-                  // $imdbid.text(data.Search[0].imdbID)
-                  // $type.text(data.Search[0].Type)
-                  // $img.attr("src", data.Search[0].Poster)
-                  // $poster.text(data.Search[0].Poster)
-                  $movieResults.html("")
-                  data.Search.forEach(function(movie) {
-                    $movieResults.append('<tr><td>' + '<a href="/info/' + movie.imdbID + '">' + movie.Title + '</a>' + '</td><td>' + movie.Year + '</td><td>' + movie.Type + '</td><td>' + movie.imdbID +
-                    '</td><td>' + '<button type="submit" class="btn btn-info btn-sl">Add</button>' + '</td><td><a href="http://www.omdbapi.com/?t=' + movie.Title + '"><img class="thumbnail" src="' + movie.Poster + '"/></a></td></tr>')
-                   })
-                 })
-      })
-    }
-      //make variable for title
-      //get title, input title into function. make function to input api into table
-      //   var $info = $('#info')
-      //   var $inputBox = $('#search-field')
-      // $('info').on('click', function() {
-      //   console
-      //   $.ajax({
-      //             url: 'http://www.omdbapi.com/?t=' + movie.Title(),
-      //             method: 'GET'
-      //           })
-      //           // .done(function(){
-      //           //   newRow()
-      //           //  })
-      //           .done(function(data){
-      //             console.log("Hi");
-      //             // title.append(data.Search[0].Title)
-      //             // $title.text(data.Search[0].Title)
-      //             // $year.text(data.Search[0].Year)
-      //             // $imdbid.text(data.Search[0].imdbID)
-      //             // $type.text(data.Search[0].Type)
-      //             // $img.attr("src", data.Search[0].Poster)
-      //             // $poster.text(data.Search[0].Poster)
-      //             // $movieResults.html("")
-      //             // data.Search.forEach(function(movie) {
-      //             //   $movieResults.append('<tr><td>' + '<a href="http://www.omdbapi.com/?t=' + movie.Title + '">' + movie.Title + '</a>' + '</td><td>' + movie.Year + '</td><td>' + movie.Type + '</td><td>' + movie.imdbID +
-      //             //   '</td><td>' + '<button type="submit" class="btn btn-info btn-sl">Add</button>' + '</td><td><a href="http://www.omdbapi.com/?t=' + movie.Title + '"><img class="thumbnail" src="' + movie.Poster + '"/></a></td></tr>')
-      //             //  })
-      //            })
-      // })
-
-
-
-
-
-      </script>
+      <button id="search-button" class="btn btn-default btn-sl active search-button" type="button">Go!</button>
     </div>
   </div>
-  </div>
-  <table class="table table-hover">
-    <th>Title</th>
-    <th>Year</th>
-    <th>Type</th>
-    <th>imdbID</th>
-    <th>Add Movie</th>
-    <th>Poster</th>
+</div>
+<table class="table table-hover">
+  <th>Title</th>
+  <th>Year</th>
+  <th>Type</th>
+  <th>imdbID</th>
+  <th>Add Movie</th>
+  <th>Poster</th>
+</table>
+<table class="table">
+  <thead>
+    <tr>
+    </tr>
+  </thead>
+  <tbody id="movie-results">
+  </tbody>
+</table>
 
-  </table>
+<script type="text/javascript">
+var $title = $('#mtitle')
+var $year = $('#myear')
+var $imdbid = $('#mimdbid')
+var $type = $('#mtype')
+var $img = $('#mimg')
+var $movieResults = $('#movie-results')
+var $inputBox = $('#search-field')
+var userMovies = <%- user.local %>.movie
+
+function like(movie){
+  // add class indicating that you have already liked this movie
+  $('#' + movie).prop('disabled', true)
+  $('#' + movie).html('Liked!')
+}
 
 
-  <table class="table">
-        <thead>
-            <tr>
+function addMovie() {
+  var $button = $(this)
+  var id = $button.attr('id')
+  var user = "<%= user._id %>"
+  $.ajax({
+    url: 'http://www.omdbapi.com/?i=' + id,
+    type: 'GET'
+  })
+  .done(function(omdbData) {
+    console.log(omdbData)
+    $.ajax({
+      url: '/users/' + user + '/movies',
+      type: 'POST',
+      contentType: 'application/json',
+      dataType: 'json',
+      data: JSON.stringify(omdbData)
+    })
+    .done(function(data){
+    })
+  })
+  $button.prop('disabled', true)
+  $button.html('Liked!')
+}
 
-</tr>
 
-
-</thead>
-        <tbody id="movie-results">
-          <!-- <tr>
-          <td><h5 id="mtitle"></h5> </td>
-          <td><h5 id="myear"></h5></td>
-          <td><h5 id="mimdbid"></h5></td>
-          <td><h5 id="mtype"></h5></td>
-
-          <%# <h1 id="mposter"></h1>%>
-
-          <td><img id="mimg" src="" alt="" /></td>
-          </tr>-->
-
-
-
-        </tbody>
-      </table>
+$('#search-button').on('click', function() {
+  $.ajax({
+    url: 'http://www.omdbapi.com/?s=' + $inputBox.val(),
+    method: 'GET'
+  })
+  .done(function(data){
+    $movieResults.html("")
+    // refactor up this data eventually
+    data.Search.forEach(function(movie) {
+      $movieResults.append('<tr><td>' + '<a href="/info/' + movie.imdbID + '">' + movie.Title + '</a>' + '</td><td>' + movie.Year + '</td><td>' + movie.Type + '</td><td>' + movie.imdbID + '</td><td>' + '<button id="' + movie.imdbID + '" type="submit" class="btn btn-info btn-sl add-button">Add</button>'+
+      '</td><td><a href="http://www.omdbapi.com/?t=' + movie.Title + '"><img class="thumbnail" src="' + movie.Poster + '"/></a></td></tr>')
+      userMovies.forEach(function(m) {
+        if (m.imdbID == movie.imdbID) {
+          like(m.imdbID)
+        }
+      })
+    })
+    $('.add-button').click(addMovie)
+  })
+})
+</script>
