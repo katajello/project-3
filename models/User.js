@@ -15,6 +15,7 @@ var
       height: String,
       ethnicity: String,
       interestedIn: String,
+      gender: String,
       movie: [{type: Schema.Types.ObjectId, ref: 'Movie'}]
     }
   })

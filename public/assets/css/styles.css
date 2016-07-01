@@ -1,9 +1,76 @@
 #search-results {
-  background: #888;
+  background: #FDFFFC;
   display: none;
   overflow: auto;
   position: absolute;
   width: 330px;
   z-index: 99;
+}
 
+body {
+  background: #FDFFFC;
+  color: #011627;
+  border-radius: 6px;
+}
+
+#search-results {
+  opacity: .5;
+  width: 12%;
+  font: 200%;
+}
+
+
+.navbar {
+  /*background-color: #FDFFFC;*/
+  color: #011627;
+}
+
+.navbar-brand {
+  font-family: 'Righteous', cursive;
+  color: #DB0000;
+}
+
+#form-label {
+  color: #DB0000;
+}
+
+a {
+  color: #011627;
+}
+
+.jumbotron {
+  background: url('/background-blue-70.png');
+  font-family: 'Righteous', cursive;
+}
+
+h3 {
+  color: #011627;
+  font-family: 'Righteous', cursive;
+}
+
+.background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height:100%;
+  background-image: url('/background.jpeg');
+  background-repeat: no-repeat;
+  background-attachment: 100%;
+  background-size: 100%;
+  opacity: 0.8;
+  filter:alpha(opacity=80);
+  z-index: -1;
+
+}
+
+#user-display {
+  background: url('/background-70.png');
+  padding: 20px;
+  border-radius: 6px;
+}
+
+img {
+  max-height: 444px;
+  max-width: 300px;
 }

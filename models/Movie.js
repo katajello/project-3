@@ -2,7 +2,7 @@ var
   mongoose = require('mongoose'),
   Schema = mongoose.Schema,
   movieSchema = new Schema({
-      _creator: {type: Schema.Types.ObjectId, ref: 'User'}
+      _likedBy: [{type: Schema.Types.ObjectId, ref: 'User'}],
       Title: String,
       Year: String,
       Rated: String,
@@ -21,8 +21,7 @@ var
       imdbRating: String,
       imdbVotes: String,
       imdbID: String,
-      Type: String,
-      Response: String
+      Type: String
   })
 
   var Movie = mongoose.model('Movie', movieSchema)

@@ -1,43 +1,29 @@
-<div class="page-header">
-    <h1><%= user.local.name %></h1>
-    <a href="/logout" class="btn btn-default btn-sm">Logout</a>
-</div>
+
 <div class="row">
-    <div class="col-sm-6 col-sm-offset-3">
-        <div class="well">
-              <h3><%= currentUser.name %></h3>
-
-            <div class="row">
-              <div class="col-xs-12 col-md-8"><img id='profile-image' style="width:300px; height:300px" />
-              <a href="https://signup.wordpress.com/signup/?ref=oauth2&oauth2_redirect=8cc7be1bd5398464de0dd62439d0761a%40https%3A%2F%2Fpublic-api.wordpress.com%2Foauth2%2Fauthorize%2F%3Fclient_id%3D1854%26response_type%3Dcode%26blog_id%3D0%26state%3D99a2088d617f242667d57a1fa4b3709cc63fc9b7064361a3a6c1bb06aad84009%26redirect_uri%3Dhttps%253A%252F%252Fen.gravatar.com%252Fconnect%252F%253Faction%253Drequest_access_token%26jetpack-code%26jetpack-user-id%3D0%26action%3Doauth2-login&wpcom_connect=1">
-              <br>Sign Up For Gravatar To Upload a Profile Pic</a><br></div>
-              <div class="col-xs-4 col-md-4">
-                    Name: <%= user.local.name %>
-              </div>
-              <div class="col-xs-4 col-md-4">
-                    Age: <%= user.local.age %>
-              </div>
-              <div class="col-xs-4 col-md-4">
-                    Location: <%= user.local.location %>
-              </div>
-              <div class="col-xs-4 col-md-4">
-                    Occupation: <%= user.local.occupation %>
-              </div>
-              <div class="col-xs-4 col-md-4">
-                    Ethnicity: <%= user.local.ethnicity %>
-              </div>
-              <div class="col-xs-4 col-md-4">
-                    Interested in?: <%= user.local.interestedIn %>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-xs-12">
-                Bio: <%= user.local.bio %>
-              </div>
-            </div>
-
+  <div class="col-sm-8 col-sm-offset-2 well">
+    <div class="row">
+      <div class="col-sm-6"><img id='profile-image' style="width:300px; height:300px" />
+        <a href="https://signup.wordpress.com/signup/?ref=oauth2&oauth2_redirect=8cc7be1bd5398464de0dd62439d0761a%40https%3A%2F%2Fpublic-api.wordpress.com%2Foauth2%2Fauthorize%2F%3Fclient_id%3D1854%26response_type%3Dcode%26blog_id%3D0%26state%3D99a2088d617f242667d57a1fa4b3709cc63fc9b7064361a3a6c1bb06aad84009%26redirect_uri%3Dhttps%253A%252F%252Fen.gravatar.com%252Fconnect%252F%253Faction%253Drequest_access_token%26jetpack-code%26jetpack-user-id%3D0%26action%3Doauth2-login&wpcom_connect=1">
+        <br><small>Sign Up For Gravatar To Upload a Profile Pic</small></a><br>
+      </div>
+        <div class="col-sm-6">
+          <h1><%= user.local.name %></h1>
+          <p><small>Age:</small><b> <%= user.local.age %></b></p>
+          <p><small>Gender:</small><b> <%= user.local.gender %></b></p>
+          <p><small>Location:</small><b> <%= user.local.location %></b></p>
+          <p><small>Occupation:</small> <b><%= user.local.occupation %></b></p>
+          <p><small>Ethnicity: </small><b><%= user.local.ethnicity %></b></p>
+          <p><small>Interested in watching with: </small><b><%= user.local.interestedIn %></b></p>
         </div>
     </div>
+      <div class="row">
+        <div class="col-xs-10">
+          <p><small>Bio: </small> <%= user.local.bio %> </p>
+        </div>
+      </div>
+    </div>
+</div>
+
 </div>
 
 <script type="text/javascript">
