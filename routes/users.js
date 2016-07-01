@@ -75,9 +75,9 @@ userRouter.route('/users/:id/movies')
     User.findById(req.params.id, function(err, user) {
       if (err) throw err;
       // then we check to see if the movie exists in the database
-      Movie.findOne({"imdbID": req.imdbID}, function(err, movie) {
+      Movie.findOne({"imdbID": req.body.imdbID}, function(err, movie) {
         if (movie) res.json({message: "Movie Found!"})
-        else res.json({message: 'No Movie Found!'})
+        else res.json({message: 'No Movie Found!', request: req.body})
       })
       // if it doesnt exist, we save it to the database
       // we then push the movie to the user movies key and save the user to the movie _likedBy

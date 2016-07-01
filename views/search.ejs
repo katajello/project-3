@@ -48,17 +48,24 @@ $('#search-button').on('click', function() {
     $('.add-button').click(function(){
       var $button = $(this)
       var id = $button.attr('id')
-      if ('<%= user._id %>') {
-        var user = "<%= user._id %>"
-      }
+      var user = "<%= user._id %>"
       $.ajax({
-        url: '/users/' + user + '/movies',
-        type: 'POST',
-        contentType: 'application/json',
-        data: JSON.stringify({"title": "up", "imdbID": "1293919"})
+        url: 'http://www.omdbapi.com/?i=' + id,
+        type: 'GET'
       })
-      .done(function(data){
-        console.log(data)
+      .done(function(omdbData) {
+        console.log(omdbData)
+        
+        $.ajax({
+          url: '/users/' + user + '/movies',
+          type: 'POST',
+          contentType: 'application/json',
+          dataType: 'json',
+          data: JSON.stringify(omdbData)
+        })
+        .done(function(data){
+          console.log(data)
+        })
       })
     })
   })
