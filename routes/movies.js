@@ -23,7 +23,25 @@ movieRouter.route("/info/:id")
     }
 })
 
+movieRouter.get('/movies', function(req, res){
+  Movie.find({}, function(err, movies){
+    res.json(movies)
+  })
+})
 
+movieRouter.route('/movies/:id')
+  .get(function(req, res) {
+    Movie.findById(req.params.id, function(err, movie) {
+      if (err) throw err;
+      res.json(movie)
+    })
+  })
+  .delete(function(req, res) {
+    Movie.findByIdAndRemove(req.params.id, function(err, movie) {
+      if (err) throw err;
+      res.json({success: true, message: "deleted!", movie: movie})
+    })
+  })
 
 // on display of movies, check current user's movies to see if they liked anything with the same imdbID
 // if they click on one they don't have, check to see if that movie exists in database, then add it to that user and add user to liked_by

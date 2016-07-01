@@ -21,8 +21,7 @@ var
       imdbRating: String,
       imdbVotes: String,
       imdbID: String,
-      Type: String,
-      Response: String
+      Type: String
   })
 
   var Movie = mongoose.model('Movie', movieSchema)
